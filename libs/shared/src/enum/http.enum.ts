@@ -57,7 +57,7 @@ export const CLIENT_ERROR = {
     status: 404,
     message: 'Client Error: Not found.',
   },
-  CONFILCT: {
+  CONFLICT: {
     status: 409,
     message: 'Client Error: Conflict.',
   },
