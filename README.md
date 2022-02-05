@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # next-koa-monorepo-template
 
 ## Getting Started
@@ -98,3 +99,6 @@ Please see [CREDITS.md](CREDITS.md) for a in depth view.
 This project is licensed under the **GPL-3.0** License.
 
 See [LICENSE.md](LICENSE.md) file for details.
+=======
+# next-koa-monorepo
+>>>>>>> main
