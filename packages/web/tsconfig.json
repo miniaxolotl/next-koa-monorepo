@@ -20,7 +20,7 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
 
-    "jsx": "preserve",
+    "jsx": "react",
     "types": ["node", "react"],
     "baseUrl": "./src",
     "paths": {

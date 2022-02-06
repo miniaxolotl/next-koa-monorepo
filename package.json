@@ -38,7 +38,8 @@
     "node-fetch": "^3.2.0",
     "tsconfig-paths": "^3.12.0",
     "uid": "^2.0.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "web": "workspace:^"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.176",
@@ -48,8 +49,7 @@
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "concurrently": "^6.3.0",
-    "eslint": "^8.2.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.8.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.4",
     "nodemon": "^2.0.13",
