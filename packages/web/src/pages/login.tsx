@@ -1,14 +1,13 @@
 import React from 'react';
 
 import DefaultLayout from '@components/layout/DefaultLayout';
-import { useTheme } from '@themes/ThemeProvider';
 
-const Index = () => {
+const Login = () => {
   return (
     <DefaultLayout>
-      <div className="container">page content</div>
+      <div className="container">login</div>
     </DefaultLayout>
   );
 };
 
-export default Index;
+export default Login;

@@ -22,6 +22,7 @@ export const useHydrate = <T,>({ defaultState, state, cookies }): RootStore<T> =
       : defaultState[key];
     _state[key as keyof T] = loadedState;
   }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const storeRef = useRef(_state as any);
   return {
