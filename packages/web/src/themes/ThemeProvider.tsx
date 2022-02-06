@@ -1,21 +1,23 @@
-import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
-import { createContext, useCallback, useContext, useRef } from 'react';
+/** @jsxImportSource @emotion/react */
+import { css, Global, jsx, Theme as EmotionTheme, ThemeProvider as EmotionThemeProvider } from '@emotion/react';
+import { createContext, useCallback, useContext, useState } from 'react';
 
 import { cookieStorage } from '@libs/utility/src/cookie-storage';
+import { baseTheme } from './base.theme';
+import { darkTheme } from './dark.theme';
 
 const key = 'theme';
 
 type ThemeType = 'dark' | 'light';
 
-export interface ThemeState {
+const defaultState: ThemeType = 'dark';
+
+export interface ThemeContextProps {
   theme: ThemeType;
+  useTheme: (theme: ThemeType) => void;
 }
 
-const defaultState: ThemeState = {
-  theme: 'light',
-};
-
-export const ThemeContext = createContext<ThemeState>(null);
+export const ThemeContext = createContext<ThemeContextProps>(null);
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -23,20 +25,38 @@ interface ThemeProviderProps {
   state?: string;
 }
 
+export type Theme = EmotionTheme & typeof baseTheme;
+
 export const ThemeProvider = ({ children, cookies, state }: ThemeProviderProps) => {
   const persistedState = cookieStorage.getCookie('theme');
-  const _state = JSON.parse(state ?? null) ?? (cookies ? JSON.parse(persistedState) ?? defaultState : defaultState);
-  const themeRef = useRef(_state);
+  const _state: ThemeType =
+    JSON.parse(state ?? null) ?? (cookies ? JSON.parse(persistedState) ?? defaultState : defaultState);
+  const [theme, useTheme] = useState(_state);
   return (
-    <ThemeContext.Provider value={themeRef.current}>
-      <EmotionThemeProvider theme={{}}>{children}</EmotionThemeProvider>
+    <ThemeContext.Provider value={{ theme, useTheme } as any}>
+      <EmotionThemeProvider theme={theme === 'light' ? baseTheme : { ...baseTheme, ...darkTheme }}>
+        <Global
+          styles={(_theme) => {
+            const theme: Theme = _theme as Theme;
+            return {
+              a: {
+                color: theme.colors.alt.base,
+              },
+              body: {
+                backgroundColor: theme.colors.bg.base,
+                color: theme.colors.primary.base,
+              },
+            };
+          }}
+        />
+        {children}
+      </EmotionThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
 export const useTheme = () => {
-  const store = useContext(ThemeContext);
-  return store;
+  return useContext(ThemeContext).theme;
 };
 
 export const useThemeMode = () => {
@@ -44,8 +64,8 @@ export const useThemeMode = () => {
 
   const setTheme = useCallback(
     (theme: ThemeType) => {
-      store.theme = theme;
-      cookieStorage.setCookie(key, JSON.stringify(store));
+      store.useTheme(theme);
+      cookieStorage.setCookie(key, JSON.stringify(theme));
     },
     [store],
   );
@@ -56,7 +76,6 @@ export const useThemeMode = () => {
     } else {
       setTheme('light');
     }
-    cookieStorage.setCookie(key, JSON.stringify(store));
   }, [setTheme, store]);
 
   return { setTheme, toggleTheme };

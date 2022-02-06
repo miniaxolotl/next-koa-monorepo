@@ -1,3 +1,23 @@
 @tailwind base;
-@tailwind components;
+// @tailwind components;
 @tailwind utilities;
+
+body {
+  font-size: 16px;
+}
+
+.button {
+  padding: 2px 8px;
+  border-radius: 4px;
+  &:hover {
+    filter: opacity(0.85);
+  }
+}
+
+.icon-button {
+  padding: 8px;
+  border-radius: 4px;
+  &:hover {
+    filter: opacity(0.85);
+  }
+}
