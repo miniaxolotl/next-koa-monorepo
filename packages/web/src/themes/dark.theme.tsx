@@ -103,7 +103,7 @@ const themeColors = {
 export const darkTheme = {
   colors: {
     bg: { base: themeColors.bg[800], light: themeColors.bg[700], dark: themeColors.bg[900] },
-    primary: { base: themeColors.primary[100], light: themeColors.primary[50], dark: themeColors.primary[200] },
+    primary: { base: themeColors.primary[50], light: themeColors.primary[50], dark: themeColors.primary[200] },
     alt: { base: themeColors.alt[500], light: themeColors.alt[300], dark: themeColors.alt[700] },
     brand: { base: themeColors.brand[500], light: themeColors.brand[400], dark: themeColors.brand[600] },
   },

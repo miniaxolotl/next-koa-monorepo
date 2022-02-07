@@ -104,7 +104,7 @@ export type ThemeSizeOptions = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export const baseTheme = {
   colors: {
-    bg: { base: themeColors.bg[100], light: themeColors.bg[50], dark: themeColors.bg[100] },
+    bg: { base: themeColors.bg[50], light: themeColors.bg[50], dark: themeColors.bg[100] },
     primary: { base: themeColors.primary[500], light: themeColors.primary[400], dark: themeColors.primary[600] },
     alt: { base: themeColors.alt[500], light: themeColors.alt[400], dark: themeColors.alt[600] },
     brand: { base: themeColors.brand[500], light: themeColors.brand[400], dark: themeColors.brand[600] },
