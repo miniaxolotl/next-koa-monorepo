@@ -1,20 +1,15 @@
 import Joi from 'joi';
 
 export const UserSchema = Joi.object({
-  email: Joi.string().max(32).email().required(),
-
+  email: Joi.string().max(32).email({ tlds: false }).required(),
   username: Joi.string().min(3).max(32).alphanum().lowercase().required(),
-
   password: Joi.string().min(8).max(256).trim().required(),
 });
 
 export const CreateUserSchema = Joi.object({
-  email: Joi.string().max(32).email().required(),
-
+  email: Joi.string().max(32).email({ tlds: false }).required(),
   username: Joi.string().min(3).max(32).alphanum().lowercase().required(),
-
   password: Joi.string().min(8).max(256).trim().required(),
-
   confirmPassword: Joi.string()
     .label('Password confirmation')
     .min(8)
