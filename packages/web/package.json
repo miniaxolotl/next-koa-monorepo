@@ -1,14 +1,14 @@
 {
-  "name": "front-end",
-  "version": "0.0.0",
+  "name": "web",
+  "version": "0.0.1",
   "license": "GPL-3.0",
-  "description": "A private file hosting service with a clean and simple user interface, and user access controls.",
+  "description": "a really cool front-end",
   "author": "Elias Mawa <elias@emawa.io>",
   "private": true,
-  "homepage": "https://github.com/theluckyegg/pndome/tree/main/packages/frontend#readme",
+  "homepage": "https://github.com/theluckyegg/next-koa-monorepo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/theluckyegg/pndome.git"
+    "url": "git+https://github.com/theluckyegg/next-koa-monorepo.git"
   },
   "browser": {
     "fs": false,
@@ -19,31 +19,33 @@
     "test": "jest",
     "lint": "next lint",
     "serve": "next dev -p $CLIENT_PORT",
-    "build": "next build -p $CLIENT_PORT",
-    "start": "next start -p $CLIENT_PORT",
-    "serve:web": "yarn serve",
-    "build:web": "next build",
-    "start:web": "next start"
+    "build": "next build",
+    "start": "next start -p $CLIENT_PORT"
   },
   "bugs": {
     "url": "https://github.com/theluckyegg/pndome/issues"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@types/react": "17.0.13",
-    "eslint-config-next": "11.0.1",
+    "@radix-ui/react-label": "^0.1.4",
+    "@radix-ui/react-popover": "latest",
     "framer-motion": "^5.3.3",
     "next": "^11.1.4",
+    "next-compose-plugins": "^2.2.1",
     "next-seo": "^4.28.1",
-    "node-fetch": "^2.6.1",
-    "nookies": "^2.5.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-icons": "^4.2.0",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "recoil": "^0.5.2",
-    "sass": "^1.41.1",
-    "zustand": "^3.5.10"
+    "sass": "^1.41.1"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^17.0.2",
+    "autoprefixer": "^10.4.2",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^12.0.10",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.18"
   }
 }

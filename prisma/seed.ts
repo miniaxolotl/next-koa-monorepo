@@ -4,8 +4,9 @@ import { Prisma } from '@prisma/client';
 
 import { RoleEnum } from '@libs/shared';
 import { ServerConfig } from '@libs/config';
+import { createID } from '@libs/utility';
+import { genHash } from '@libs/crypt';
 import { connectDB, db } from '@libs/database';
-import { createID, genHash } from '@libs/utility';
 
 (async () => {
   await connectDB();

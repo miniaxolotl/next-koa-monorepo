@@ -1,11 +1,12 @@
 import { ParameterizedContext } from 'koa';
 import Router from 'koa-router';
-import _ from 'lodash';
 
 import { SchemaGuard } from '@backend/middleware';
 import { getUser } from '@backend/controller/v1/user/user.service';
-import { login } from './session.service';
+
 import { CLIENT_ERROR, LoginSchema } from '@libs/shared';
+
+import { login } from './session.service';
 
 const route = [''];
 const router: Router = new Router();

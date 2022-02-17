@@ -1,15 +1,14 @@
 import { ParameterizedContext } from 'koa';
-import { Session, User } from '@prisma/client';
 
 import { CLIENT_ERROR } from '@libs/shared';
 import { getRoleByUserId } from '@backend/controller/v1/role/role.service';
+import { getUserById } from '@backend/controller/v1/user/user.service';
 import {
   deferSession,
   getSession,
   isSessionExpired,
   revokeSession,
 } from '@backend/controller/auth/session/session.service';
-import { getUser, getUserById } from '@backend/controller/v1/user/user.service';
 
 export const SessionGuard = (options?: { passthrough?: boolean }) => {
   return async (ctx: ParameterizedContext, next: () => Promise<void>) => {

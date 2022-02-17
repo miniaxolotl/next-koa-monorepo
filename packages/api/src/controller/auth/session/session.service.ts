@@ -1,8 +1,9 @@
 import { Session, User, UserRole } from '@prisma/client';
 
 import { UserType } from '@libs/shared';
+import { compare } from '@libs/crypt';
 import { db } from '@libs/database';
-import { compare, v4ID } from '@libs/utility';
+import { v4ID } from '@libs/utility';
 
 export const login = async (data: UserType, user: User & { roles?: UserRole[] }) => {
   const { userId, password } = user;

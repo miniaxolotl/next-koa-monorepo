@@ -1,6 +1,9 @@
+/.vscode/
+
 node_modules/
 coverage/
 build/
+dist/
 
 .env
 
@@ -9,6 +12,8 @@ build/
 !/.yarn/plugins
 !/.yarn/releases
 !/.yarn/sdks
+
+_ignore_*/
 
 # Swap the comments on the following lines if you don't wish to use zero-installs
 # Documentation here: https://yarnpkg.com/features/zero-installs
