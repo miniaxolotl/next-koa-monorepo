@@ -17,7 +17,7 @@ vim .env
 #### **Step 3 - Run the start script**
 
 ```bash
-yarn start:web
+yarn start:api
 ```
 
 ## Developing
@@ -31,17 +31,17 @@ yarn build:libs
 #### **Step 1 - Watch the source files**
 
 ```bash
-yarn serve:web
+yarn serve:api
 ```
 
 ### Running
 
 ```bash
-yarn start:web
+yarn start:api
 ```
 
 ### Testing
 
 ```bash
-yarn test:web
+yarn test:api
 ```

@@ -18,32 +18,62 @@ git clone git@github.com:theluckyegg/next-koa-monorepo.git
 
 ### Compiling
 
-#### **Step 1 - Run the build script**
+#### **Step 1 - Install Dependencies**
 
 ```bash
-yarn build # build:api or build:web
+yarn install
+```
+
+#### **Step 2 - Run the build script**
+
+```bash
+yarn build # build:libs && build:api && build:web
 ```
 
 ### Starting
 
-#### **Step 1 - Run the start script**
+### **Step 1 - Copy `.env.example` to `.env`**
 
 ```bash
-yarn start # start:api or start:web
+cp .env.example .env
+```
+
+### **Step 2 - Populate environment variables**
+
+```bash
+vim .env
+```
+
+#### **Step 3 - Run the start script**
+
+```bash
+yarn start # start:api && start:web
 ```
 
 ## Developing
 
+#### **Step 1 - Build common libraries**
+
+```bash
+yarn build:libs
+```
+
+#### **Step 1 - Watch the source files**
+
+```bash
+yarn serve
+```
+
 ### Running
 
 ```bash
-yarn serve # serve:api or serve:web
+yarn serve # serve:api && serve:web
 ```
 
 ### Testing
 
 ```bash
-yarn test # test:api or test:web
+yarn test # test:api && test:web
 ```
 
 ## Deploying
