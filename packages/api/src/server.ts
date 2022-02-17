@@ -10,7 +10,7 @@ import Router from 'koa-router';
 import websockify from 'koa-websocket';
 import Koa, { ParameterizedContext } from 'koa';
 
-import config from '@libs/config/src/server.config';
+import { ServerConfig as config } from '@libs/config';
 import { connectDB } from '@libs/database';
 import { HTTPError, SERVER_ERROR } from '@libs/shared';
 
@@ -130,6 +130,7 @@ app.use(async (ctx, next) => {
   /* api/v1 */
 
   const versions = fs.readdirSync('./src/controller/');
+
   for (const version of versions) {
     try {
       const _version: Router = new Router();
@@ -140,7 +141,7 @@ app.use(async (ctx, next) => {
           route: string;
           router: Router<unknown, unknown>;
           // eslint-disable-next-line @typescript-eslint/no-var-requires
-        } = require(`./controller/${version}/${module}/${module}.controller.ts`);
+        } = require(`./controller/${version}/${module}/${module}.controller`);
         _version.use(_module.route, _module.router.routes());
         // app.env && console.log(`load_module: ${version}/${module}`);
       }
