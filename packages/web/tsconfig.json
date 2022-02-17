@@ -4,7 +4,11 @@
     "module": "commonjs",
     "target": "esnext",
     "sourceMap": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "strict": true,
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
@@ -19,23 +23,58 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
-    "types": ["node", "react"],
+    "types": [
+      "node",
+      "react"
+    ],
     "baseUrl": "./src",
     "paths": {
-      "@pages/": ["pages/"],
-      "@pages/*": ["pages/*"],
-      "@components/": ["components/"],
-      "@components/*": ["components/*"],
-      "@stores/": ["stores/"],
-      "@stores/*": ["stores/*"],
-      "@themes/": ["themes/"],
-      "@themes/*": ["themes/*"],
-      "@hooks/": ["hooks/"],
-      "@hooks/*": ["hooks/*"],
-      "@styles/": ["styles/"],
-      "@styles/*": ["styles/*"]
+      "@pages/": [
+        "pages/"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@components/": [
+        "components/"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@stores/": [
+        "stores/"
+      ],
+      "@stores/*": [
+        "stores/*"
+      ],
+      "@themes/": [
+        "themes/"
+      ],
+      "@themes/*": [
+        "themes/*"
+      ],
+      "@hooks/": [
+        "hooks/"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@styles/": [
+        "styles/"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "*.ts", "*.tsx"],
-  "exclude": ["node_modules/"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "*.ts",
+    "*.tsx"
+  ],
+  "exclude": [
+    "node_modules/"
+  ]
 }

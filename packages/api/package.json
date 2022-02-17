@@ -2,7 +2,7 @@
   "name": "api",
   "version": "0.0.1",
   "license": "GPL-3.0",
-  "description": "a really cool api",
+  "description": "a really cool back-end",
   "author": "Elias Mawa <elias@emawa.io>",
   "private": true,
   "homepage": "https://github.com/theluckyegg/next-koa-monorepo",
