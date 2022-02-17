@@ -31,7 +31,7 @@
     "@radix-ui/react-label": "^0.1.4",
     "@radix-ui/react-popover": "latest",
     "framer-motion": "^5.3.3",
-    "next": "^11.1.4",
+    "next": "^12.1.0",
     "next-compose-plugins": "^2.2.1",
     "next-seo": "^4.28.1",
     "react": "17.0.2",
