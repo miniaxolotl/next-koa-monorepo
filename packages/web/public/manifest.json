@@ -1,0 +1,32 @@
+{
+  "short_name": "next-koa-monorepo",
+  "name": "next-koa-monorepo: koa & next monorepo",
+  "description": "a monorepo using koajs and nextjs.",
+  "icons": [
+    {
+      "src": "/image/maskable_icon_x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/image/maskable_icon_x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/image/maskable_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/image/maskable_icon_x1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#c84b94",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#c84b94"
+}
