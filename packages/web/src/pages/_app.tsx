@@ -2,7 +2,7 @@ import React from 'react';
 import App, { AppContext, AppProps } from 'next/app';
 
 import { ThemeProvider } from '@themes/ThemeProvider';
-import { cookieStorage } from '@libs/utility/src/cookie-storage';
+import { cookieStorage } from '@libs/utility';
 
 import '../styles/global.scss';
 
@@ -18,7 +18,7 @@ const MyApp = (context: AppProps & { cookies: string; state }) => {
 MyApp.getInitialProps = async (context: AppContext) => {
   const appProps = await App.getInitialProps(context);
   const { req } = context.ctx;
-  const state = cookieStorage.get(context.ctx);
+  const state = cookieStorage.getCookies({ context: context.ctx });
   return {
     ...appProps,
     cookies: req?.headers.cookie ?? '',

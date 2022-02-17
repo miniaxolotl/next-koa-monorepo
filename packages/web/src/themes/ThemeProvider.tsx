@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { css, Global, jsx, Theme as EmotionTheme, ThemeProvider as EmotionThemeProvider } from '@emotion/react';
+import { Theme as EmotionTheme, ThemeProvider as EmotionThemeProvider, Global } from '@emotion/react';
 import { createContext, useCallback, useContext, useState } from 'react';
 
-import { cookieStorage } from '@libs/utility/src/cookie-storage';
+import { cookieStorage } from '@libs/utility';
+
 import { baseTheme } from './base.theme';
 import { darkTheme } from './dark.theme';
 
 const key = 'theme';
 
-type ThemeType = 'dark' | 'light';
+export type ThemeType = 'dark' | 'light';
 
 const defaultState: ThemeType = 'dark';
 
@@ -33,8 +34,14 @@ export const ThemeProvider = ({ children, cookies, state }: ThemeProviderProps) 
     JSON.parse(state ?? null) ?? (cookies ? JSON.parse(persistedState) ?? defaultState : defaultState);
   const [theme, useTheme] = useState(_state);
   return (
-    <ThemeContext.Provider value={{ theme, useTheme } as any}>
-      <EmotionThemeProvider theme={theme === 'light' ? baseTheme : { ...baseTheme, ...darkTheme }}>
+    <ThemeContext.Provider value={{ theme, useTheme } as ThemeContextProps}>
+      <EmotionThemeProvider
+        theme={
+          theme === 'light'
+            ? baseTheme
+            : { ...baseTheme, ...darkTheme, colors: { ...baseTheme.colors, ...darkTheme.colors } }
+        }
+      >
         <Global
           styles={(_theme) => {
             const theme: Theme = _theme as Theme;

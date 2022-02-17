@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
+import _ from 'lodash';
+
 import { withTheme } from '@emotion/react';
 import { Theme, useTheme } from '@themes/ThemeProvider';
-import _ from 'lodash';
 import { useCallback, useState } from 'react';
 
 export type FormControlProps = {
-  type: 'text';
+  type: 'text' | 'password';
   onChange?: (name: string, value: string) => void;
   name: string;
   id?: string;
@@ -23,7 +24,7 @@ export const FormControl = ({ type, onChange, theme, name, id, label, value, err
       setData(e.target.value);
       if (onChange) onChange(name, e.target.value);
     },
-    [data],
+    [name, onChange],
   );
   const style = () => {
     return {

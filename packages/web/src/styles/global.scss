@@ -21,3 +21,20 @@ body {
     filter: opacity(0.85);
   }
 }
+
+.form-control {
+  .input {
+    margin: 0px 0px 4px;
+    padding: 8px;
+    border-radius: 4px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .error {
+    margin: 0px 0px 4px;
+    height: 18px;
+    line-height: 12px;
+    font-size: 12px;
+  }
+}

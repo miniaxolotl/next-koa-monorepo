@@ -1,4 +1,16 @@
 export const baseThemeColors = {
+  parchment: {
+    50: '#f4f4f0',
+    100: '#dfdfd7',
+    200: '#cac9bd',
+    300: '#b5b4a0',
+    400: '#9f9e83',
+    500: '#86856a',
+    600: '#686752',
+    700: '#4a4a3b',
+    800: '#2d2d24',
+    900: '#0f0f0b',
+  },
   grey: {
     50: '#f0f3fc',
     100: '#d3d9e1',
@@ -35,17 +47,17 @@ export const baseThemeColors = {
     800: '#11343b',
     900: '#001217',
   },
-  parchment: {
-    50: '#f4f4f0',
-    100: '#dfdfd7',
-    200: '#cac9bd',
-    300: '#b5b4a0',
-    400: '#9f9e83',
-    500: '#86856a',
-    600: '#686752',
-    700: '#4a4a3b',
-    800: '#2d2d24',
-    900: '#0f0f0b',
+  red: {
+    50: '#ffe2ec',
+    100: '#ffb3c5',
+    200: '#fc839f',
+    300: '#f95278',
+    400: '#f62252',
+    500: '#dd0939',
+    600: '#ad032c',
+    700: '#7c001e',
+    800: '#4d0012',
+    900: '#200005',
   },
 };
 
@@ -108,6 +120,8 @@ export const baseTheme = {
     primary: { base: themeColors.primary[500], light: themeColors.primary[400], dark: themeColors.primary[600] },
     alt: { base: themeColors.alt[500], light: themeColors.alt[400], dark: themeColors.alt[600] },
     brand: { base: themeColors.brand[500], light: themeColors.brand[400], dark: themeColors.brand[600] },
+    success: { base: baseThemeColors.green[500], light: baseThemeColors.green[400], dark: baseThemeColors.green[600] },
+    error: { base: baseThemeColors.red[500], light: baseThemeColors.red[400], dark: baseThemeColors.red[600] },
   },
   space: ['2px', '8px', '12px', '16px'],
   radius: {

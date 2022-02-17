@@ -1,7 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import Joi from 'joi';
 import { SyntheticEvent, useEffect, useMemo } from 'react';
+
+import { createID } from '@libs/utility';
+
 import { useJoiValidationResolver } from './form-resolver';
-import { createID } from '@libs/utility/src/uid';
 
 const state: { [key: string]: HookFormState } = {};
 let counter = 0;
@@ -34,7 +38,7 @@ export type HookFormOptions<T, K = Partial<T>> = {
   resolver?: (data: K) => { values: K; errors: K };
 };
 
-const HookFormState = <T extends { [key: string]: string }, K = Partial<T>>({
+const HookFormState = <T extends { [key: string]: string }>({
   id,
   options: { defaultValues, resolver } = {},
 }: HookFormStateProps<T>) => {
@@ -68,15 +72,15 @@ const HookFormState = <T extends { [key: string]: string }, K = Partial<T>>({
 
   const register = (key: string, { label, id, name }: HookFormRegisterOptions = {}) => {
     useEffect(() => {
-      setValue(key, defaultValues[key]);
+      setValue(key, defaultValues ? defaultValues[key] : '');
       setError(key);
-    }, []);
+    }, [key]);
     return {
       onChange: eventFunc,
       id: id ?? key,
       name: name ?? key,
       label: label ?? key,
-      value: defaultValues[key] ?? '',
+      value: defaultValues ? defaultValues[key] : '',
     };
   };
 
@@ -94,21 +98,22 @@ const HookFormState = <T extends { [key: string]: string }, K = Partial<T>>({
   return { register, handleSubmit, state: { setValue, getValue, setError, getError } };
 };
 
-export const useHookForm = <T extends { [key: string]: string }, K = Partial<T>>({
+export const useHookForm = <T extends { [key: string]: string }>({
   schema,
   options: { defaultValues, resolver } = {},
 }: HookFormProps<T>) => {
   const id = useMemo(() => {
-    ++counter;
+    counter++;
     return createID();
-  }, [counter]);
+  }, []);
 
   useEffect(() => {
     return () => {
       delete state[id];
-      --counter;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      counter--;
     };
-  }, []);
+  }, [id]);
 
   state[id] = { values: {}, errors: {} };
 
@@ -121,7 +126,7 @@ export const useHookForm = <T extends { [key: string]: string }, K = Partial<T>>
           resolver: resolver ?? useJoiValidationResolver<T>(schema),
         },
       }),
-    [state[id].values, state[id].errors],
+    [defaultValues, id, resolver, schema],
   );
 };
 

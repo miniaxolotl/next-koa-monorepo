@@ -1,8 +1,8 @@
 import React from 'react';
 
-import DefaultLayout from '@components/layout/DefaultLayout';
-import { useTheme } from '@themes/ThemeProvider';
 import { NextPage } from 'next';
+
+import DefaultLayout from '@components/layout/DefaultLayout';
 import Heading from '@components/misc/Heading';
 import Text from '@components/misc/Text';
 
@@ -10,7 +10,7 @@ type ErrorPageProps = {
   statusCode: number;
   message: string;
 };
-const Error: NextPage<ErrorPageProps> = ({ statusCode, message }) => {
+const Error: NextPage<ErrorPageProps> = ({ statusCode, message }: ErrorPageProps) => {
   return (
     <DefaultLayout>
       <div className="flex grow flex-col place-items-center">

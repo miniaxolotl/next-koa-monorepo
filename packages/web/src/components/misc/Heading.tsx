@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 
-import { Theme, useTheme } from '@themes/ThemeProvider';
-import { BackgroundColors } from '@libs/components';
 import { withTheme } from '@emotion/react';
-import { NextComponentType } from 'next';
-import { baseTheme, ThemeSizeOptions } from '@themes/base.theme';
+import { Theme, useTheme } from '@themes/ThemeProvider';
+import { ThemeSizeOptions, baseTheme } from '@themes/base.theme';
 
 export type HeadingProps = {
   children?: React.ReactNode;

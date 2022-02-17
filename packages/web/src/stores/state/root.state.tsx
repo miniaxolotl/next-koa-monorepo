@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { RootStateType } from '@stores/StateProvider';
-import { cookieStorage } from '@libs/utility/src/cookie-storage';
+import { cookieStorage } from '@libs/utility';
 
 export type StateSelector = <T extends RootStateType, K = keyof T>(selector: K) => RootStateType[string];
 

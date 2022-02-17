@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { Theme } from '@themes/ThemeProvider';
 import { IconType } from 'react-icons/lib';
-import Button, { ButtonProps } from './Button';
 import { withTheme } from '@emotion/react';
+
+import { Theme } from '@themes/ThemeProvider';
+
+import Button, { ButtonProps } from './Button';
 
 type IconButtonProps = {
   theme: Theme;

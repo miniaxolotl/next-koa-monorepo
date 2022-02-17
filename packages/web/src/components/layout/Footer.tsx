@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { baseTheme } from '@themes/base.theme';
-import { NextPage } from 'next';
-import Link from 'next/link';
 import React from 'react';
+
 import { FiHeart } from 'react-icons/fi';
+import Link from 'next/link';
+import { NextPage } from 'next';
+
+import { baseTheme } from '@themes/base.theme';
 
 type FooterProps = {
   children?: React.ReactNode;
@@ -11,7 +13,7 @@ type FooterProps = {
 
 const GithubLink = 'https://github.com/theluckyegg/next-koa-monorepo';
 
-const Footer: NextPage<FooterProps> = ({ children }) => (
+const Footer: NextPage<FooterProps> = ({ children }: FooterProps) => (
   <div className="px-8 pb-2 text-center">
     <span>{children}</span>
     <div className="flex flex-col justify-between">

@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react';
+/** @jsxImportSource @emotion/react */
+import { useCallback } from 'react';
 
+import Link from 'next/link';
 import { FiMoon, FiSun } from 'react-icons/fi';
 
-import { useTheme, useThemeMode } from '@themes/ThemeProvider';
-import LinkButton from '@components/misc/LinkButton';
 import IconButton from '@components/misc/IconButton';
-import Link from 'next/link';
+import LinkButton from '@components/misc/LinkButton';
+import { useTheme, useThemeMode } from '@themes/ThemeProvider';
 
 type NavigationBarProps = {
   title?: string;
@@ -15,6 +16,15 @@ const NavigationBar = ({ title }: NavigationBarProps) => {
   const { toggleTheme } = useThemeMode();
   const theme = useTheme();
 
+  const style = () => {
+    return {
+      ':hover': {
+        cursor: 'pointer',
+        filter: 'opacity(0.85)',
+      },
+    };
+  };
+
   const _toggleTheme = useCallback(() => {
     toggleTheme();
   }, [toggleTheme]);
@@ -23,8 +33,10 @@ const NavigationBar = ({ title }: NavigationBarProps) => {
     <>
       <div className="px-8 pt-8 flex justify-between flex-row items-center">
         {title && (
-          <Link href="/">
-            <span className="whitespace-nowrap">{title}</span>
+          <Link href="/" passHref>
+            <span css={style} className="whitespace-nowrap">
+              {title}
+            </span>
           </Link>
         )}
         <div className="space-x-4 flex flex-row items-center">
