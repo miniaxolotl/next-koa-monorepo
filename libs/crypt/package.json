@@ -1,5 +1,5 @@
 {
-  "name": "@libs/database",
+  "name": "@libs/crypt",
   "version": "0.0.1",
   "license": "GPL-3.0",
   "author": "Elias Mawa <elias@emawa.io>",
@@ -12,5 +12,8 @@
   "scripts": {
     "build": "tsc",
     "test": "jest"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1"
   }
 }
