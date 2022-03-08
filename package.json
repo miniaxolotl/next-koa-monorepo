@@ -21,9 +21,6 @@
   "engines": {
     "node": ">=16.0.0 <17.0.0"
   },
-  "resolutions": {
-    "styled-components": "^5"
-  },
   "scripts": {
     "lint": "yarn eslint . --ext .js,.ts,.tsx",
     "lint:api": "yarn workspace api lint",
@@ -64,42 +61,37 @@
     "build:lib-utility": "yarn workspace @libs/utility build",
     "start": "concurrently 'yarn start:api' 'yarn start:web'",
     "start:api": "yarn workspace api start",
-    "start:web": "yarn workspace web start",
-    "clean": "yarn workspace @libs/components clean && yarn workspace @libs/config clean && yarn workspace @libs/crypt clean && yarn workspace @libs/database clean && yarn workspace @libs/hook-form clean && yarn workspace @libs/hooks clean && yarn workspace @libs/shared clean && yarn workspace @libs/stores clean && yarn workspace @libs/themes clean && yarn workspace @libs/utility clean && yarn clean:api && yarn clean:web",
-    "clean:api": "yarn workspace api clean",
-    "clean:web": "yarn workspace web clean",
-    "db:reset": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate reset --force --skip-seed",
-    "db:generate": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma generate",
-    "db:migrate": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate dev",
-    "db:seed": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn scripts:seed",
-    "scripts:seed": "yarn prisma db seed"
+    "start:web": "yarn workspace web start"
   },
   "prisma": {
     "seed": "yarn ts-node -r tsconfig-paths/register -r ts-node prisma/seed.ts"
+  },
+  "resolutions": {
+    "styled-components": "^5",
+    "@types/react": "17.0.2",
+    "@types/node": "16.11.25",
+    "next": "11.1.4"
   },
   "dependencies": {
     "@prisma/client": "^3.9.2",
     "cross-fetch": "^3.1.5",
     "joi": "^17.4.2",
-    "lodash": "^4.17.21",
-    "node-fetch": "^3.2.0"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.0",
     "@types/lodash": "^4.14.176",
     "@types/node": "16.11.25",
-    "@types/node-fetch": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "babel-plugin-module-resolver": "^4.1.0",
     "concurrently": "^6.3.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.9.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.4",
     "nodemon": "^2.0.13",
-    "prettier": "^2.5.1",
+    "prettier": "^2.4.1",
     "prisma": "^3.2.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.3.0",
