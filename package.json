@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "packageManager": "yarn@3.1.1",
   "license": "GPL-3.0",
-  "description": "monorepo using koajs and nextjs.",
+  "description": "private file hosting service.",
   "author": "First-name Last-name <user@example.com>",
   "homepage": "https://github.com/theluckyegg/pndome#readme",
   "repository": {
@@ -21,21 +21,17 @@
   ],
   "scripts": {
     "lint": "yarn eslint . --ext .js,.ts,.tsx",
-    "lint:api": "yarn workspace api lint",
-    "lint:web": "yarn workspace web lint",
-    "prettier": "yarn prettier --write",
     "serve": "concurrently 'yarn serve:api' 'yarn serve:web'",
-    "build": "concurrently 'yarn build:api' 'yarn build:web' 'yarn build:libs'",
+    "build": "concurrently 'yarn build:api' 'yarn build:web'",
     "serve:api": "yarn workspace api serve",
     "serve:web": "yarn workspace web serve",
     "build:api": "yarn workspace api build",
     "build:web": "yarn workspace web build",
     "start:api": "yarn workspace api start",
     "start:web": "yarn workspace web start",
-    "build:libs": "yarn build:lib:components && yarn build:lib:config && yarn build:lib:crypt && yarn build:lib:database && yarn build:lib:shared && yarn build:lib:utility",
+    "build:libs": "yarn build:lib:components && yarn build:lib:config && yarn build:lib:database && yarn build:lib:shared && yarn build:lib:utility",
     "build:lib:components": "yarn workspace @libs/components build",
     "build:lib:config": "yarn workspace @libs/config build",
-    "build:lib:crypt": "yarn workspace @libs/crypt build",
     "build:lib:database": "yarn workspace @libs/database build",
     "build:lib:shared": "yarn workspace @libs/shared build",
     "build:lib:utility": "yarn workspace @libs/utility build"
@@ -43,8 +39,13 @@
   "prisma": {
     "seed": "yarn ts-node -r tsconfig-paths/register -r ts-node prisma/seed.ts"
   },
+  "resolutions": {
+    "@types/react": "17.0.2",
+    "@types/node": "16.11.25",
+    "next": "11.1.4"
+  },
   "dependencies": {
-    "@prisma/client": "^3.9.2",
+    "@prisma/client": "^3.6.0",
     "joi": "^17.4.2",
     "lodash": "^4.17.21",
     "node-fetch": "^3.2.0"
@@ -58,12 +59,11 @@
     "@zerollup/ts-transform-paths": "^1.7.18",
     "babel-plugin-module-resolver": "^4.1.0",
     "concurrently": "^6.3.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.9.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.4",
     "nodemon": "^2.0.13",
-    "prettier": "^2.5.1",
+    "prettier": "^2.4.1",
     "prisma": "^3.2.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.3.0",

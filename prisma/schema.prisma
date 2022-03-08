@@ -8,13 +8,14 @@ generator client {
 }
 
 model User {
-  userId   String    @db.VarChar(16)
-  email    String    @unique @db.VarChar(255)
-  username String    @unique @db.VarChar(255)
-  password String    @db.VarChar(255)
-  deleted  DateTime?
-  created  DateTime  @default(now())
-  updated  DateTime  @updatedAt
+  userId   String @unique @db.VarChar(16)
+  email    String @unique @db.VarChar(64)
+  username String @unique @db.VarChar(64)
+  password String @db.VarChar(128)
+
+  deleted DateTime?
+  created DateTime  @default(now())
+  updated DateTime  @updatedAt
 
   roles    UserRole[]
   sessions Session[]
@@ -23,33 +24,38 @@ model User {
 }
 
 model Role {
-  roleId    String @db.VarChar(16)
+  role      String @unique @db.VarChar(16)
   authority Int    @unique @db.UnsignedTinyInt
 
   users UserRole[]
 
-  @@id([roleId])
+  @@id([role])
 }
 
 model UserRole {
-  roleId  String   @db.VarChar(16)
-  userId  String   @db.VarChar(16)
-  created DateTime @default(now())
+  roleId String @db.VarChar(16)
+  userId String @db.VarChar(16)
 
-  role Role @relation(fields: [roleId], references: [roleId])
+  deleted DateTime?
+  created DateTime  @default(now())
+  updated DateTime  @updatedAt
+
+  role Role @relation(fields: [roleId], references: [role])
   user User @relation(fields: [userId], references: [userId])
 
   @@id([roleId, userId])
 }
 
 model Session {
-  sessionId String    @unique @db.VarChar(64)
-  userId    String    @db.VarChar(16)
-  revokedAt DateTime?
-  expires   DateTime
-  created   DateTime  @default(now())
+  sessionId String @unique @db.VarChar(24)
+  userId    String @db.VarChar(16)
+
+  deleted DateTime?
+  created DateTime  @default(now())
+  updated DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [userId])
 
   @@id([sessionId, userId])
+  @@index([userId])
 }
