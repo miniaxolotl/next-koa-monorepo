@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es6",
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "./dist",
@@ -14,6 +15,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": false,
+
+    "jsx": "preserve",
+    "checkJs": true,
 
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,

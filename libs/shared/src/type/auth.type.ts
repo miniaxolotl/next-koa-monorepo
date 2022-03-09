@@ -1,4 +1,4 @@
-export type LoginType = {
+export type AuthType = {
   username: string;
   password: string;
 };

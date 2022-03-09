@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export const IdSchema = Joi.object({
-  id: Joi.string().min(16).max(16).alphanum().lowercase().required(),
+  id: Joi.string().min(1).required(),
 });
 
 export const SearchSchema = Joi.object({

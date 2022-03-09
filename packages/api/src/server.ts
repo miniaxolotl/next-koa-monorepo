@@ -178,9 +178,9 @@ if (!fs.existsSync(config.DATA_DIR)) {
   fs.mkdirSync(config.DATA_DIR, { recursive: true });
 }
 
-app.listen(config.PORT, () => {
+app.listen(config.SERVER_PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`listening: http://localhost:${config.PORT}`);
+  console.log(`listening: http://localhost:${config.SERVER_PORT}`);
   // eslint-disable-next-line no-console
   console.log(`enviroment: ${app.env}`);
 });
