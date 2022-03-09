@@ -14,6 +14,8 @@ import { ServerConfig as config } from '@libs/config';
 import { connectDB } from '@libs/database';
 import { HTTPError, SERVER_ERROR } from '@libs/shared';
 
+import { SessionController } from './controller/auth/session';
+
 /************************************************
  * setup
  ************************************************/
@@ -128,6 +130,9 @@ app.use(async (ctx, next) => {
 
 {
   /* api/v1 */
+
+  router.use(`/api/v1/auth`, SessionController.router.routes());
+  // router.use(`/api/v1/auth/refresh`, SessionController.router.routes());
 
   const versions = fs.readdirSync('./src/controller/');
 
