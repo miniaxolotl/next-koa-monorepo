@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Theme as EmotionTheme, ThemeProvider as EmotionThemeProvider, Global } from '@emotion/react';
 import { createContext, useCallback, useContext, useState } from 'react';
 
@@ -18,7 +17,8 @@ export interface ThemeContextProps {
   useTheme: (theme: ThemeType) => void;
 }
 
-export const ThemeContext = createContext<ThemeContextProps>(null);
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+export const ThemeContext = createContext<ThemeContextProps>(null!);
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -30,26 +30,33 @@ export type Theme = EmotionTheme & typeof baseTheme;
 
 export const ThemeProvider = ({ children, cookies, state }: ThemeProviderProps) => {
   const persistedState = cookieStorage.getCookie('theme');
-  const _state: ThemeType =
-    JSON.parse(state ?? null) ?? (cookies ? JSON.parse(persistedState) ?? defaultState : defaultState);
+  const _state: ThemeType = state
+    ? state
+    : cookies
+    ? persistedState
+      ? JSON.parse(persistedState)
+      : defaultState
+    : defaultState;
   const [theme, useTheme] = useState(_state);
   return (
     <ThemeContext.Provider value={{ theme, useTheme } as ThemeContextProps}>
       <EmotionThemeProvider
         theme={
-          theme === 'light'
-            ? baseTheme
-            : { ...baseTheme, ...darkTheme, colors: { ...baseTheme.colors, ...darkTheme.colors } }
+          theme === 'light' ? baseTheme : darkTheme
+          // : { ...baseTheme, ...darkTheme, colors: { ...baseTheme.colors, ...darkTheme.colors } }
         }
       >
         <Global
           styles={(_theme) => {
             const theme: Theme = _theme as Theme;
             return {
-              a: {
-                color: theme.colors.alt.base,
+              html: {
+                backgroundColor: theme.colors.bg.base,
+                color: theme.colors.primary.base,
               },
               body: {
+                fontFamily: `'Fira Sans', sans-serif`,
+                fontsize: baseTheme.fontSizes['md'],
                 backgroundColor: theme.colors.bg.base,
                 color: theme.colors.primary.base,
               },
@@ -68,11 +75,10 @@ export const useTheme = () => {
 
 export const useThemeMode = () => {
   const store = useContext(ThemeContext);
-
   const setTheme = useCallback(
     (theme: ThemeType) => {
       store.useTheme(theme);
-      cookieStorage.setCookie(key, JSON.stringify(theme));
+      cookieStorage.setCookie(key, theme);
     },
     [store],
   );
