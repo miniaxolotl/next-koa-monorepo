@@ -7,9 +7,11 @@ export const useJoiValidationResolver =
     const _schema =
       keys.length > 1
         ? schema
-        : Joi.object({
+        : keys[0]
+        ? Joi.object({
             [keys[0]]: schema.extract(keys[0]),
-          });
+          })
+        : schema;
     const { value, error } = _schema.validate(data, {
       abortEarly: false,
       stripUnknown: true,
