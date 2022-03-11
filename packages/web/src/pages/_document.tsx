@@ -1,10 +1,11 @@
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
 
-export default class Document extends NextDocument {
+class Document extends NextDocument {
   render() {
+    // const theme = useTheme();
     return (
       <Html lang="en">
-        <Head />
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
@@ -13,3 +14,5 @@ export default class Document extends NextDocument {
     );
   }
 }
+
+export default Document;

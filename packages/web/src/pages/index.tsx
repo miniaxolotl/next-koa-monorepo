@@ -1,11 +1,20 @@
 import React from 'react';
 
-import DefaultLayout from '@components/layout/DefaultLayout';
+import { DefaultLayout } from '@components/layout';
+import { Box, Span } from '@components/core';
+import { Button, Heading } from '@components/misc';
 
 const Index = () => {
   return (
     <DefaultLayout>
-      <div className="container">page content</div>
+      <Box className="grow">
+        Heading: <Heading>Hello World!</Heading>
+        Div: <Box>Hello World!</Box>
+        Span: <Span>Hello World!</Span>
+        <Box>
+          Button: <Button>Hello World!</Button>
+        </Box>
+      </Box>
     </DefaultLayout>
   );
 };
