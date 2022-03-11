@@ -1,32 +1,37 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 
+import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
-import { Theme, useTheme } from '@themes/ThemeProvider';
-import { ThemeSizeOptions, baseTheme } from '@themes/base.theme';
 
-export type HeadingProps = {
-  children?: React.ReactNode;
-  color?: string;
-  size?: ThemeSizeOptions;
-  className?: string;
-  theme?: Theme;
+import { Box, BoxProps, BoxStyle } from '../core/Box';
+
+type HeadingStyle = BoxStyle & {
+  // nothing
 };
 
-const Heading: React.FC<HeadingProps> = (props) => {
-  const { children, className, theme, color, size } = props;
-  const _theme = useTheme();
-  const style = () => {
-    return {
-      fontSize: size ? baseTheme.headingSizes[size] : 'md',
-      color: _theme === color ?? 'light' ? theme.colors.primary.light : theme.colors.primary.dark,
-    };
-  };
+export type HeadingProps = BoxProps & {
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  style?: Partial<HeadingStyle>;
+};
+
+const Heading_ = ({ children, className, css, as, theme, style }: HeadingProps) => {
+  const Heading = styled(Box)<HeadingProps>(({ theme }) => ({
+    fontFamily: `'Secular One', sans-serif`,
+    fontSize: theme.headingSizes[style?.size] ?? theme.headingSizes['xs'],
+  }));
   return (
-    <span css={style} className={className}>
+    <Heading
+      {...{
+        as: as ?? 'h1',
+        className: `mb-4${className ? ' ' + className : ''}`,
+        css,
+        style,
+        theme,
+      }}
+    >
       {children}
-    </span>
+    </Heading>
   );
 };
 
-export default withTheme(Heading);
+export const Heading = withTheme(Heading_);

@@ -1,40 +1,54 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 
-import { BackgroundColors } from '@libs/components';
+import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
-import { Theme, useTheme } from '@themes/ThemeProvider';
 
-export type ButtonProps = {
-  children?: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  color?: string;
-  appearance?: 'default' | 'minimal';
-  className?: string;
-  type?: 'button' | 'submit';
-  theme?: Theme;
+import { Span, SpanProps, SpanStyle } from '@components/core';
+
+type ButtonStyle = SpanStyle & {
+  // colorScheme?: string;
 };
 
-const Button = (props: ButtonProps) => {
-  const { children, onClick, type, color, appearance, className, theme } = props;
-  const t = useTheme();
-  const style = () => {
-    return {
-      backgroundColor:
-        appearance === 'minimal' ? 'none' : t === 'light' ? theme.colors.brand.base : theme.colors.brand.dark,
-      color: theme.colors.brand.base,
-    };
-  };
+export type ButtonProps = SpanProps & {
+  style?: Partial<ButtonStyle>;
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+};
+
+const Button_ = (
+  { children, className, css, as, theme, style, href, type }: ButtonProps,
+  ref: React.Ref<HTMLBaseElement>,
+) => {
+  const Button = styled(Span)<ButtonProps>(({ theme, style }) => ({
+    paddingLeft: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
+    paddingRight: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
+    paddingTop: style?.py ?? theme.space[style?.py] ?? theme.space['sm'],
+    paddingBottom: style?.py ?? theme.space[style?.py] ?? theme.space['sm'],
+
+    borderWidth: style?.borderWidth ?? style?.variant === 'ghost' ? null : 1,
+    borderRadius: theme.radius[style?.borderRadius] ?? theme.radius['md'],
+    // borderColor: style?.borderColor ?? theme.colors.primary.base,
+
+    ':hover': {
+      filter: 'opacity(0.85)',
+    },
+  }));
   return (
-    <button
-      css={style}
-      type={type ?? 'button'}
-      className={`button flex flex-row items-center ${BackgroundColors[color]} ${className ?? ''}`}
-      onClick={onClick}
+    <Button
+      {...{
+        ref,
+        as: as ?? 'button',
+        className,
+        css,
+        style,
+        theme,
+        href,
+        type: type ?? 'button',
+      }}
     >
-      <span className={t === 'light' ? 'text-white' : 'text-white'}>{children ?? 'submit'}</span>
-    </button>
+      {children}
+    </Button>
   );
 };
 
-export default withTheme(Button);
+export const Button = withTheme(React.forwardRef(Button_));
