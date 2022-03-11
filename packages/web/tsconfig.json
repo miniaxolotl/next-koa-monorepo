@@ -1,16 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
+    "module": "commonjs",
     "sourceMap": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "strict": true,
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
-    /* typechecking options */
-    "noEmit": true,
-    "allowJs": true,
-    "skipLibCheck": true,
     /* module resolution options */
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -18,26 +19,69 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
-    "types": ["node", "react"],
+    "checkJs": true,
+    "types": [
+      "node",
+      "react"
+    ],
     "baseUrl": "./src",
     "paths": {
-      "@pages/": ["pages/"],
-      "@pages/*": ["pages/*"],
-      "@components/": ["components/"],
-      "@components/*": ["components/*"],
-      "@stores/": ["stores/"],
-      "@stores/*": ["stores/*"],
-      "@themes/": ["themes/"],
-      "@themes/*": ["themes/*"],
-      "@hooks/": ["hooks/"],
-      "@hooks/*": ["hooks/*"],
-      "@styles/": ["styles/"],
-      "@styles/*": ["styles/*"],
-      "@data/": ["data/"],
-      "@data/*": ["data/*"]
+      "@pages": [
+        "pages/"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@components": [
+        "components/"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@stores": [
+        "stores/"
+      ],
+      "@stores/*": [
+        "stores/*"
+      ],
+      "@themes": [
+        "themes/"
+      ],
+      "@themes/*": [
+        "themes/*"
+      ],
+      "@hooks": [
+        "hooks/"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@styles": [
+        "styles/"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@data": [
+        "data/"
+      ],
+      "@data/*": [
+        "data/*"
+      ]
     },
-    "incremental": true
+    "incremental": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "*.ts", "*.tsx"],
-  "exclude": ["node_modules/"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "*.ts",
+    "*.tsx"
+  ],
+  "exclude": [
+    "node_modules/"
+  ]
 }
