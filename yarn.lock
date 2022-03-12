@@ -973,6 +973,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@libs/hook-form@workspace:libs/hook-form":
+  version: 0.0.0-use.local
+  resolution: "@libs/hook-form@workspace:libs/hook-form"
+  languageName: unknown
+  linkType: soft
+
 "@libs/shared@workspace:libs/shared":
   version: 0.0.0-use.local
   resolution: "@libs/shared@workspace:libs/shared"

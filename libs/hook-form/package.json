@@ -1,0 +1,18 @@
+{
+  "name": "@libs/hook-form",
+  "version": "0.0.1",
+  "license": "GPL-3.0",
+  "author": "Elias Mawa <elias@emawa.io>",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist/",
+    "watch": "echo 'watching @libs/config' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
+    "build": "echo 'building @libs/config' && tsc",
+    "test": "jest"
+  }
+}
