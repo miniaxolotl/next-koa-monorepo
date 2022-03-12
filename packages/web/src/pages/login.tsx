@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Box } from '@components/core';
 import { Button } from '@components/misc';
@@ -9,25 +9,29 @@ import { useHookForm } from '@hooks';
 import { AuthSchema, AuthType } from '@libs/shared';
 
 const Login = () => {
-  const [errors, setErrors] = useState<Partial<AuthType> | null>(null);
-  const { handleSubmit, register } = useHookForm<AuthType>({
+  const {
+    handleSubmit,
+    register,
+    state: { getError },
+  } = useHookForm<AuthType>({
     schema: AuthSchema,
     options: {},
   });
-  const onSubmit = (data: AuthType, errors?: Partial<AuthType>) => {
+
+  const onSubmit = (data: Partial<AuthType>, errors?: Partial<AuthType>) => {
     if (errors) {
-      setErrors(errors);
+      // setErrors(errors);
     } else {
-      setErrors(null);
+      // setErrors(null);
     }
   };
+
   return (
     <DefaultLayout>
       <Box className="flex justify-center">
         <form className="flex flex-col space-y-2 w-full md:w-96" onSubmit={handleSubmit(onSubmit)}>
-          {/* <FormControl type="text" error={errors?.username} {...register('username')} />
-          <FormControl type="password" error={errors?.password} {...register('password')} /> */}
-          {/* <FormControl style={{ variant: 'ghost' }} name="submit" type="submit" value="login" /> */}
+          <FormControl type="text" error={getError('username')} {...register('username')} />
+          <FormControl type="password" error={getError('password')} {...register('password')} />
           <Button
             style={{ variant: 'ghost' }}
             type="submit"

@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { omit } from 'lodash';
+import React, { useState } from 'react';
 
 import { motion } from 'framer-motion';
 import { withTheme } from '@emotion/react';
-import { omit, startCase } from 'lodash';
 
 import { Span, SpanProps, SpanStyle } from '@components/core';
-import { useHookFormData, useHookFormValue } from '@hooks/HookFormProvider';
 
 type FormControlStyle = SpanStyle & {
   // nothing
@@ -18,32 +17,29 @@ export type FormControlProps = SpanProps & {
   error?: string;
   name: string;
   placeholder?: string;
-  label?: string;
-  form: string;
+  value?: string;
+  defaultValue?: string;
+  id?: string;
+  geterror?: () => string;
 };
 
-const FormInputElement = (props: FormControlProps, ref: React.Ref<HTMLInputElement>) => {
-  const { onChange, onClick, children, className, theme, colorScheme, style, name, placeholder, label, form } = props;
-  const { setValue, setError } = useHookFormData();
-  const state = useHookFormValue();
-  useEffect(() => {
-    // setValue(form, name, 'Hello World!');
-    // console.log(state[form].values);
-  }, []);
-
-  // const [data, setData] = useState(state[form]?.[name] ?? '');
+const FormControlInputElement = (
+  props: Omit<FormControlProps, 'onChange' | 'onClick'> & {
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick?: (event: React.SyntheticEvent<HTMLInputElement, MouseEvent>) => void;
+  },
+  ref: React.Ref<HTMLInputElement>,
+) => {
+  const { children, onChange, onClick, type, value, style, theme, colorScheme } = props;
   return (
     <input
       {...omit(props, 'theme')}
       {...{
         ref,
-        onChange: (event) => {
-          setValue(form, name as string, event.target.value);
-          // setData(event.target.value);
-          onChange && onChange(event);
-        },
+        type: type ? type : 'text',
+        onChange,
         onClick,
-        className,
+        value: value,
         style: {
           paddingLeft: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
           paddingRight: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
@@ -59,8 +55,6 @@ const FormInputElement = (props: FormControlProps, ref: React.Ref<HTMLInputEleme
 
           fontSize: theme.fontSizes[style?.size] ?? theme.fontSizes['md'],
         },
-        value: state[form]?.values[name] ?? '',
-        placeholder: startCase(placeholder ?? label ?? name),
       }}
     >
       {children}
@@ -68,53 +62,46 @@ const FormInputElement = (props: FormControlProps, ref: React.Ref<HTMLInputEleme
   );
 };
 
-const FormInput = React.forwardRef(FormInputElement);
+const FormControlInput = withTheme(React.forwardRef(FormControlInputElement));
 
 const FormControlElement = (
   props: Omit<FormControlProps, 'onChange' | 'onClick'> & {
-    onChange?: (name: string, value: string) => string;
+    onChange?: (name: string, value: string) => void;
     onClick?: (target: HTMLInputElement) => void;
   },
   ref: React.Ref<HTMLInputElement>,
 ) => {
-  const { children, onChange, onClick, theme, type, error, name } = props;
-  const [active, setActive] = useState(false);
-  const [IError, setError] = useState(error);
-  useEffect(() => {
-    setError(error);
-  }, [error]);
-  const FormControlInput = useMemo(() => {
-    const onChangeFunc = (event: React.ChangeEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-      !active && setActive(true);
-      onChange && setError(onChange(name, (event.target as HTMLInputElement).value));
-    };
-    const onClickFunc = (event: React.SyntheticEvent<HTMLElement, MouseEvent>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      !active && setActive(true);
-      onClick && onClick(event.target as HTMLInputElement);
-    };
-    return (
-      <FormInput
-        {...props}
-        {...{
-          ref,
-          onChange: onChangeFunc,
-          onClick: onClickFunc,
-          type: type ? type : 'text',
-        }}
-      >
-        {children}
-      </FormInput>
-    );
-  }, [active, children, name, onChange, onClick, props, ref, type]);
+  const { children, onChange, onClick, theme, type, error, name, value, geterror, defaultValue } = props;
+  const [data, setData] = useState(value ?? defaultValue ?? '');
+  const [IError, setIError] = useState(error);
+  // const [active, setActive] = useState(false);
+
+  const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setData(event.target.value);
+    onChange && onChange(name, event.target.value);
+    geterror && setIError(geterror());
+  };
+
+  const _onClick = (event: React.SyntheticEvent<HTMLInputElement, MouseEvent>) => {
+    onClick && onClick(event.target as HTMLInputElement);
+  };
+
   return (
     <React.StrictMode>
       <div className="flex flex-col">
         {/* {type !== 'submit' && <Span as="label">{startCase(label ?? name)}</Span>} */}
-        {FormControlInput}
+        <FormControlInput
+          {...props}
+          {...{
+            ref,
+            onChange: _onChange,
+            onClick: _onClick,
+            type: type ? type : 'text',
+            value: data,
+          }}
+        >
+          {children}
+        </FormControlInput>
         {IError && (
           <motion.div
             animate={IError ? 'open' : ''}

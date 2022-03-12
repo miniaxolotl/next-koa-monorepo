@@ -1,8 +1,13 @@
 import Joi from 'joi';
 
-export const useJoiValidationResolver =
-  <T extends { [key: string]: string }, K = Partial<T>>(schema: Joi.Schema) =>
-  (data: K) => {
+import { HookFormState } from '.';
+
+export const useJoiValidationResolver = <T extends { [key: string]: string }>(schema: Joi.Schema) => {
+  return (
+    data: Partial<{
+      [key: string]: string;
+    }>,
+  ) => {
     const keys = Object.keys(data);
     const _schema =
       keys.length > 1
@@ -19,17 +24,18 @@ export const useJoiValidationResolver =
 
     if (error)
       return {
-        values: value as K,
+        values: value,
         errors: error.details.reduce(
           (messages, message) => ({
             ...messages,
             [message.path[0]]: message.message,
           }),
-          {} as K,
+          {},
         ),
-      };
+      } as HookFormState<Partial<T>>;
     return {
-      values: value as K,
-      errors: {} as K,
-    };
+      values: value,
+      errors: {},
+    } as HookFormState<Partial<T>>;
   };
+};

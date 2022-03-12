@@ -34,8 +34,8 @@ export type BoxProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   theme: Theme;
   style?: Partial<BoxStyle>;
-  onChange?: (event: React.ChangeEvent<HTMLElement>) => void;
-  onClick?: (event: React.SyntheticEvent<HTMLElement, MouseEvent>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLBaseElement>) => void;
+  onClick?: (event: React.SyntheticEvent<HTMLBaseElement, MouseEvent>) => void;
 };
 
 const BoxElement = (

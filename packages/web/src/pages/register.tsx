@@ -6,26 +6,30 @@ import { DefaultLayout } from '@components/layout';
 import { FormControl } from '@components/form/form-control';
 import { useHookForm } from '@hooks';
 
-import { CreateUserType, UserSchema } from '@libs/shared';
+import { CreateUserSchema, CreateUserType } from '@libs/shared';
 
 const Register = () => {
-  const { handleSubmit, register } = useHookForm<CreateUserType>({
-    schema: UserSchema,
+  const {
+    handleSubmit,
+    register,
+    state: { getError },
+  } = useHookForm<CreateUserType>({
+    schema: CreateUserSchema,
     options: {},
   });
 
-  const onSubmit = (data: CreateUserType, errors?: Partial<CreateUserType>) => {
+  const onSubmit = (data: Partial<CreateUserType>, errors?: Partial<CreateUserType>) => {
     if (errors) console.log(errors);
   };
+
   return (
     <DefaultLayout>
       <Box className="flex justify-center">
         <form className="flex flex-col space-y-2 w-full md:w-96" onSubmit={handleSubmit(onSubmit)}>
-          {/* <FormControl type="text" {...register('email')} />
-          <FormControl type="text" {...register('username')} />
-          <FormControl type="password" {...register('password')} />
-          <FormControl type="confirmPassword" {...register('confirmPassword')} /> */}
-          {/* <FormControl style={{ variant: 'ghost' }} name="submit" type="submit" value="login" /> */}
+          <FormControl type="text" error={getError('email')} {...register('email')} />
+          <FormControl type="text" error={getError('username')} {...register('username')} />
+          <FormControl type="password" error={getError('password')} {...register('password')} />
+          <FormControl type="password" error={getError('confirmPassword')} {...register('confirmPassword')} />
           <Button style={{ variant: 'ghost' }}>register</Button>
         </form>
       </Box>
