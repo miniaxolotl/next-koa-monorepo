@@ -2,9 +2,21 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2015",
+    "target": "esnext",
     "declaration": true,
-    "outDir": "./dist"
+    "sourceMap": true,
+    "outDir": "./dist",
+
+    /* module resolution options */
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": false,
+
+    "types": ["node", "react"],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "incremental": true,
+    "jsx": "preserve"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/", "**/spec.ts"]

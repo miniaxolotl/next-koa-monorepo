@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { HookFormState } from '.';
+import { HookFormState } from './use-hook-form';
 
 export const useJoiValidationResolver = <T extends { [key: string]: string }>(schema: Joi.Schema) => {
   return (

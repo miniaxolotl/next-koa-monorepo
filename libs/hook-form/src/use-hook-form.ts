@@ -4,7 +4,8 @@ import { MutableRefObject, SyntheticEvent, useEffect, useMemo, useRef } from 're
 
 import { uuid } from '@libs/utility';
 
-import { useForceUpdate } from './use-force-update';
+import { useForceUpdate } from '@libs/hooks';
+
 import { useJoiValidationResolver } from './use-form-resolver';
 
 export type HandleSubmit<T> = (
@@ -19,13 +20,13 @@ export type HookFormState<T> = {
 
 export type HookFormConfig<T> = {
   schema: Joi.Schema;
-  options?: HookFormConfigOptions<T>;
+  options: HookFormConfigOptions<T>;
 };
 
 export type HookFormConfigOptions<T = { [key: string]: string }, K = Partial<T>> = {
-  id?: string;
-  defaultValues?: Partial<{ [key: string]: string }>;
-  resolver?: (data: Partial<{ [key in keyof T]: string }>) => HookFormState<K>;
+  id: string;
+  defaultValues: Partial<{ [key: string]: string }>;
+  resolver: (data: Partial<{ [key in keyof T]: string }>) => HookFormState<K>;
 };
 
 const createHookForm = <T = { [key: string]: string }>(
@@ -88,7 +89,7 @@ const createHookForm = <T = { [key: string]: string }>(
       if (Object.keys(res.errors).length > 0) {
         return onSubmit(state.current.values, res.errors);
       }
-      return onSubmit(state.current.values, null);
+      return onSubmit(state.current.values);
     };
   };
   return { register, handleSubmit, state: { setValue, getValue, setError, getError } };
@@ -97,7 +98,9 @@ const createHookForm = <T = { [key: string]: string }>(
 export const useHookForm = <T extends { [key: string]: string }>({
   schema,
   options: { id, defaultValues, resolver } = {},
-}: HookFormConfig<T>) => {
+}: Omit<HookFormConfig<T>, 'options'> & {
+  options?: Partial<HookFormConfigOptions<T>>;
+}) => {
   const formID = useMemo(() => id ?? uuid(), [id]);
   const state = useRef<HookFormState<T>>({
     values: {},
