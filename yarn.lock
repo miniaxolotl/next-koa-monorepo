@@ -976,18 +976,84 @@ __metadata:
 "@libs/hook-form@workspace:libs/hook-form":
   version: 0.0.0-use.local
   resolution: "@libs/hook-form@workspace:libs/hook-form"
+  dependencies:
+    "@emotion/react": ^11.8.1
+    "@emotion/styled": ^11.8.1
+    "@types/react-dom": ^17.0.2
+    autoprefixer: ^10.4.2
+    eslint: ^7.32.0
+    eslint-config-next: ^12.0.10
+    framer-motion: ^5.3.3
+    next: ^12.1.0
+    next-compose-plugins: ^2.2.1
+    next-seo: ^4.28.1
+    postcss: ^8.4.6
+    react: 17.0.2
+    react-dom: ^17.0.2
+    react-icons: ^4.3.1
+    recoil: ^0.5.2
+    sass: ^1.41.1
+    sharp: ^0.30.1
+    tailwindcss: ^3.0.18
   languageName: unknown
   linkType: soft
 
 "@libs/hooks@workspace:libs/hooks":
   version: 0.0.0-use.local
   resolution: "@libs/hooks@workspace:libs/hooks"
+  dependencies:
+    "@types/react-dom": ^17.0.2
+    autoprefixer: ^10.4.2
+    eslint: ^7.32.0
+    eslint-config-next: ^12.0.10
+    next: ^12.1.0
+    react: 17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
 "@libs/shared@workspace:libs/shared":
   version: 0.0.0-use.local
   resolution: "@libs/shared@workspace:libs/shared"
+  languageName: unknown
+  linkType: soft
+
+"@libs/stores@workspace:libs/stores":
+  version: 0.0.0-use.local
+  resolution: "@libs/stores@workspace:libs/stores"
+  dependencies:
+    "@types/react-dom": ^17.0.2
+    autoprefixer: ^10.4.2
+    eslint: ^7.32.0
+    eslint-config-next: ^12.0.10
+    next: ^12.1.0
+    react: 17.0.2
+    react-dom: ^17.0.2
+  languageName: unknown
+  linkType: soft
+
+"@libs/themes@workspace:libs/themes":
+  version: 0.0.0-use.local
+  resolution: "@libs/themes@workspace:libs/themes"
+  dependencies:
+    "@emotion/react": ^11.8.1
+    "@emotion/styled": ^11.8.1
+    "@types/react-dom": ^17.0.2
+    autoprefixer: ^10.4.2
+    eslint: ^7.32.0
+    eslint-config-next: ^12.0.10
+    framer-motion: ^5.3.3
+    next: ^12.1.0
+    next-compose-plugins: ^2.2.1
+    next-seo: ^4.28.1
+    postcss: ^8.4.6
+    react: 17.0.2
+    react-dom: ^17.0.2
+    react-icons: ^4.3.1
+    recoil: ^0.5.2
+    sass: ^1.41.1
+    sharp: ^0.30.1
+    tailwindcss: ^3.0.18
   languageName: unknown
   linkType: soft
 
