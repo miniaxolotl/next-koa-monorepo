@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 // import { FiMoon, FiSun } from 'react-icons/fi';
 
 import { Anchor, Button } from '@components/misc';
-import { Box, BoxProps, BoxStyle, Span } from '@components/core';
+import { Box, BoxProps, BoxStyle, Span } from '@libs/components';
 
 import { withTheme } from '@emotion/react';
 

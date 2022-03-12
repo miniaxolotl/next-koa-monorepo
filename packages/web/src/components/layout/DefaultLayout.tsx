@@ -8,7 +8,7 @@ import { withTheme } from '@emotion/react';
 
 import { Anchor } from '@components/misc';
 import { NavigationBar } from '@components/navigation/NavigationBar';
-import { Box, BoxProps, BoxStyle } from '@components/core';
+import { Box, BoxProps, BoxStyle } from '@libs/components';
 
 type DefaultLayoutStyle = BoxStyle & {
   // nothing

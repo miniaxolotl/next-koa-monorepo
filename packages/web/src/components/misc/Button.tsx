@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
 
-import { Span, SpanProps, SpanStyle } from '@components/core';
+import { Span, SpanProps, SpanStyle } from '@libs/components';
 
 type ButtonStyle = SpanStyle & {
   // colorScheme?: string;

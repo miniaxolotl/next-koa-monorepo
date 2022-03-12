@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { withTheme } from '@emotion/react';
 
-import { Span, SpanProps, SpanStyle } from '@components/core';
+import { Span, SpanProps, SpanStyle } from '@libs/components';
 
 type FormControlStyle = SpanStyle & {
   // nothing
@@ -30,7 +30,7 @@ const FormControlInputElement = (
   },
   ref: React.Ref<HTMLInputElement>,
 ) => {
-  const { children, onChange, onClick, type, value, style, theme, colorScheme } = props;
+  const { children, onChange, onClick, type, value, style, theme } = props;
   return (
     <input
       {...omit(props, 'theme')}
@@ -41,19 +41,23 @@ const FormControlInputElement = (
         onClick,
         value: value,
         style: {
-          paddingLeft: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
-          paddingRight: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
-          paddingTop: style?.py ?? theme.space[style?.py] ?? theme.space['sm'],
-          paddingBottom: style?.py ?? theme.space[style?.py] ?? theme.space['sm'],
+          paddingLeft: style?.px ? theme.space[style.px] : undefined,
+          paddingRight: style?.px ? theme.space[style?.px] : undefined,
+          paddingTop: style?.py ? theme.space[style?.py] : undefined,
+          paddingBottom: style?.py ? theme.space[style?.py] : undefined,
 
-          color: style?.color ?? colorScheme ?? theme.colors.primary.base,
+          color: style?.color
+            ? style.color
+            : style?.variant === 'solid'
+            ? theme.colors.bg.base
+            : theme.colors.primary.base,
           backgroundColor: 'transparent',
 
-          borderWidth: style?.borderWidth ?? style?.variant === 'ghost' ? null : 1,
-          borderRadius: theme.radius[style?.borderRadius] ?? theme.radius['md'],
+          borderWidth: style?.borderWidth ? style.borderWidth : style?.variant === 'ghost' ? undefined : 1,
+          borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
           // borderColor: style?.borderColor ?? colorScheme ?? theme.colors.primary.base,
 
-          fontSize: theme.fontSizes[style?.size] ?? theme.fontSizes['md'],
+          fontSize: style?.size ? theme.fontSizes[style.size] : theme.fontSizes['md'],
         },
       }}
     >

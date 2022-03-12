@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Box } from '@components/core';
+import { Box } from '@libs/components';
 import { Button } from '@components/misc';
 import { DefaultLayout } from '@components/layout';
-import { FormControl } from '@components/form/form-control';
-import { useHookForm } from '@hooks';
+import { FormControl, useHookForm } from '@libs/hook-form';
 
 import { AuthSchema, AuthType } from '@libs/shared';
 

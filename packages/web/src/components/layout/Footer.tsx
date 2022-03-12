@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import styled from '@emotion/styled';
 
 import { withTheme } from '@emotion/react';
-import { Box, BoxProps, BoxStyle, Span } from '@components/core';
+import { Box, BoxProps, BoxStyle, Span } from '@libs/components';
 
 type FooterStyle = BoxStyle & {
   // nothing

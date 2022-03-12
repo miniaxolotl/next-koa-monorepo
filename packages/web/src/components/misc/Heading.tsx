@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
 
-import { Box, BoxProps, BoxStyle } from '../core/Box';
+import { Box, BoxProps, BoxStyle } from '@libs/components';
 
 type HeadingStyle = BoxStyle & {
   // nothing

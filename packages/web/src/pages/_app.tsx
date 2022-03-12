@@ -3,7 +3,7 @@ import App, { AppContext, AppProps } from 'next/app';
 
 import { cookieStorage } from '@libs/utility';
 
-import { ThemeProvider } from '@themes/ThemeProvider';
+import { ThemeProvider } from '@libs/themes';
 
 import '../styles/global.scss';
 
