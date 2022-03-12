@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "outDir": "./dist",
+
+    /* typechecking options */
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": true,
+
+    /* module resolution options */
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "preserve",
+    "checkJs": true,
+    "types": ["node", "react"],
+    "baseUrl": "./src",
+    "incremental": true,
+    "allowJs": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/", "**/spec.ts"]
+}
