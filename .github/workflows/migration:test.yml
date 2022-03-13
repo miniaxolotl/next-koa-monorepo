@@ -1,0 +1,76 @@
+name: 'migration:test'
+
+env:
+  MYSQL_DATABASE: leaf-life
+  MYSQL_USER: leaf-life
+  MYSQL_PASSWORD: password
+  MYSQL_ROOT_PASSWORD: password
+
+  DB_MYSQL_PORT: 3306
+  DB_MYSQL_HOST: localhost
+  DB_MYSQL_SCHEMA: leaf-life
+
+  DB_MYSQL_ROOT_USERNAME: root
+  DB_MYSQL_ROOT_PASSWORD: password
+  DB_MYSQL_ROOT_URL: mysql://root:password@localhost:3306/leaf-life
+
+  DB_MYSQL_USERNAME: leaf-life
+  DB_MYSQL_PASSWORD: password
+  DB_MYSQL_URL: mysql://leaf-life:password@localhost:3306/leaf-life
+
+on:
+  push:
+    branches: [main, qa]
+  pull_request:
+    branches: [main, qa]
+
+jobs:
+  build:
+    name: Migrate Database
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+
+    services:
+      mariadb:
+        image: mariadb:10.5.8
+        ports:
+          - '3306:3306'
+        env:
+          MYSQL_DATABASE: leaf-life
+          MYSQL_USER: leaf-life
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: password
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Lint Project
+        run: yarn lint
+
+      - name: Build Library
+        run: yarn build:libs
+
+      - name: 'Database: migration'
+        run: yarn db:migrate
+
+      - name: 'Database: reset'
+        run: yarn db:reset
+
+      - name: 'Database: seed'
+        run: yarn db:seed
