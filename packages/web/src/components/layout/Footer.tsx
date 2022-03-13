@@ -1,30 +1,42 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 
-import { FiHeart } from 'react-icons/fi';
-import Link from 'next/link';
 import { NextPage } from 'next';
+import styled from '@emotion/styled';
 
-import { baseTheme } from '@themes/base.theme';
+import { withTheme } from '@emotion/react';
+import { Box, BoxProps, BoxStyle, Span } from '@libs/components';
 
-type FooterProps = {
-  children?: React.ReactNode;
+type FooterStyle = BoxStyle & {
+  // nothing
 };
 
-const GithubLink = 'https://github.com/theluckyegg/next-koa-monorepo';
+export type FooterProps = BoxProps & {
+  subText?: string;
+  style?: Partial<FooterStyle>;
+};
 
-const Footer: NextPage<FooterProps> = ({ children }: FooterProps) => (
-  <div className="px-8 pb-2 text-center">
-    <span>{children}</span>
-    <div className="flex flex-col justify-between">
-      <span className="basis-1/2" style={{ fontSize: baseTheme.fontSizes.xs }}>
-        Developed with <FiHeart className="inline" /> by Elias Mawa {'-'} <Link href={GithubLink}>Github</Link>
-      </span>
-      <span className="basis-1/2" style={{ fontSize: baseTheme.fontSizes.xxs }}>
-        next-koa-page © 2022
-      </span>
-    </div>
-  </div>
-);
+const Footer_: NextPage<FooterProps> = ({ children, css, as, theme, style, subText }: FooterProps) => {
+  const Footer = styled(Box)<FooterProps>(() => ({}));
+  return (
+    <Footer as={as ?? 'div'} className="mx-8 py-2 text-center" css={css} style={style} theme={theme}>
+      <Box className="flex flex-col justify-between">
+        {children && (
+          <Box>
+            <Span className="basis-1/2" style={{ size: 'sm' }}>
+              {children}
+            </Span>
+          </Box>
+        )}
+        {subText && (
+          <Box>
+            <Span className="basis-1/2" style={{ size: 'xs' }}>
+              {subText}
+            </Span>
+          </Box>
+        )}
+      </Box>
+    </Footer>
+  );
+};
 
-export default Footer;
+export const Footer = withTheme(Footer_);

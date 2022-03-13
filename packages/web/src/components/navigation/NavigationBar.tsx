@@ -1,56 +1,51 @@
-/** @jsxImportSource @emotion/react */
-import { useCallback } from 'react';
+import React from 'react';
 
 import Link from 'next/link';
-import { FiMoon, FiSun } from 'react-icons/fi';
+import styled from '@emotion/styled';
+// import { FiMoon, FiSun } from 'react-icons/fi';
 
-import IconButton from '@components/misc/IconButton';
-import LinkButton from '@components/misc/LinkButton';
-import { useTheme, useThemeMode } from '@themes/ThemeProvider';
+import { Anchor, Box, BoxProps, BoxStyle, Button, Span } from '@libs/components';
 
-type NavigationBarProps = {
-  title?: string;
+import { withTheme } from '@emotion/react';
+
+type NavigationBarStyle = BoxStyle & {
+  // nothing
 };
 
-const NavigationBar = ({ title }: NavigationBarProps) => {
-  const { toggleTheme } = useThemeMode();
-  const theme = useTheme();
+export type NavigationBarProps = Omit<BoxProps, 'children'> & {
+  title?: string;
+  style?: Partial<NavigationBarStyle>;
+};
 
-  const style = () => {
-    return {
-      ':hover': {
-        cursor: 'pointer',
-        filter: 'opacity(0.85)',
-      },
-    };
-  };
-
-  const _toggleTheme = useCallback(() => {
-    toggleTheme();
-  }, [toggleTheme]);
-
+const NavigationBar_ = ({ className, css, as, theme, style, title }: NavigationBarProps) => {
+  const NavigationBar = styled(Box)<NavigationBarProps>(() => ({}));
   return (
-    <>
-      <div className="px-8 pt-8 flex justify-between flex-row items-center">
-        {title && (
-          <Link href="/" passHref>
-            <span css={style} className="whitespace-nowrap">
-              {title}
-            </span>
+    <NavigationBar
+      as={as ?? 'div'}
+      className={`flex flex-row ${title ? 'justify-between' : 'justify-around'} items-center mx-8 py-4 `}
+      css={css}
+      style={style}
+      theme={theme}
+    >
+      {title && (
+        <Link href="/" passHref>
+          <Anchor className="whitespace-nowrap">{title}</Anchor>
+        </Link>
+      )}
+      <Span className={`flex flex-row space-x-4 items-center${className ? ' ' + className : ''}`}>
+        <Span>
+          <Link href="/login" passHref>
+            <Anchor className="whitespace-nowrap">login</Anchor>
           </Link>
-        )}
-        <div className="space-x-4 flex flex-row items-center">
-          <LinkButton href="/login" appearance="minimal">
-            login
-          </LinkButton>
-          <LinkButton href="/register" appearance="minimal" color="emerald">
-            register
-          </LinkButton>
-          <IconButton icon={theme === 'light' ? FiSun : FiMoon} onClick={_toggleTheme} />
-        </div>
-      </div>
-    </>
+        </Span>
+        <Button style={{ variant: 'solid' }}>
+          <Link href="/register" passHref>
+            <Anchor className="whitespace-nowrap">register</Anchor>
+          </Link>
+        </Button>
+      </Span>
+    </NavigationBar>
   );
 };
 
-export default NavigationBar;
+export const NavigationBar = withTheme(NavigationBar_);

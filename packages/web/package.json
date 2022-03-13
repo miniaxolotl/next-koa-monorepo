@@ -18,18 +18,18 @@
   "scripts": {
     "test": "jest",
     "lint": "next lint",
+    "prettier": "yarn prettier --write",
     "serve": "next dev -p $CLIENT_PORT",
-    "build": "next build",
-    "start": "next start -p $CLIENT_PORT"
+    "build": "echo 'building web' && next build",
+    "start": "echo 'starting web' && next start -H 0.0.0.0 -p $CLIENT_PORT",
+    "clean": "rm -rf .next/"
   },
   "bugs": {
     "url": "https://github.com/theluckyegg/pndome/issues"
   },
   "dependencies": {
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
-    "@radix-ui/react-label": "^0.1.4",
-    "@radix-ui/react-popover": "latest",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
     "framer-motion": "^5.3.3",
     "next": "^12.1.0",
     "next-compose-plugins": "^2.2.1",
@@ -37,8 +37,10 @@
     "react": "17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-query": "^3.34.16",
     "recoil": "^0.5.2",
-    "sass": "^1.41.1"
+    "sass": "^1.41.1",
+    "sharp": "^0.30.1"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.2",

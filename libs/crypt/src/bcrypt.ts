@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 
 import { ServerConfig } from '@libs/config';
 
-const saltRounds = ServerConfig.CRYPT_SALT_ROUNDS || 10;
+const saltRounds = ServerConfig.SALT_ROUNDS || 10;
 
 /**
  * Salt the hash

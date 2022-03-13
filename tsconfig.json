@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
+    "target": "es6",
     "module": "commonjs",
-    "target": "esnext",
     "sourceMap": true,
-    "outDir": "./build",
+    "outDir": "./dist",
 
     /* typechecking options */
     "strict": true,
@@ -15,6 +15,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": false,
+
+    "jsx": "preserve",
+    "checkJs": true,
 
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,

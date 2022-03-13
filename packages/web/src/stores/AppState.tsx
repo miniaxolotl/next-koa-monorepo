@@ -7,7 +7,7 @@ export enum AppStoreEnum {
 }
 
 export type AuthStore = {
-  token: string;
+  token: string | null;
 };
 
 export type RoleStore = {

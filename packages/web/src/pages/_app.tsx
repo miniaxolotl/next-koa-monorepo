@@ -1,7 +1,7 @@
 import React from 'react';
 import App, { AppContext, AppProps } from 'next/app';
 
-import { ThemeProvider } from '@themes/ThemeProvider';
+import { ThemeProvider } from '@libs/themes';
 import { cookieStorage } from '@libs/utility';
 
 import '../styles/global.scss';
@@ -9,7 +9,7 @@ import '../styles/global.scss';
 const MyApp = (context: AppProps & { cookies: string; state }) => {
   const { Component, pageProps, cookies, state } = context;
   return (
-    <ThemeProvider state={state.theme} cookies={cookies}>
+    <ThemeProvider state={state?.theme} cookies={cookies}>
       <Component {...pageProps} />
     </ThemeProvider>
   );

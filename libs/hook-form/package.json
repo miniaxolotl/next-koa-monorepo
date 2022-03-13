@@ -1,0 +1,40 @@
+{
+  "name": "@libs/hook-form",
+  "version": "0.0.1",
+  "license": "GPL-3.0",
+  "author": "Elias Mawa <elias@emawa.io>",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf ./dist/",
+    "watch": "echo 'watching @libs/hook-form' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
+    "build": "echo 'building @libs/hook-form' && tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "framer-motion": "^5.3.3",
+    "next": "^12.1.0",
+    "next-compose-plugins": "^2.2.1",
+    "next-seo": "^4.28.1",
+    "react": "17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "recoil": "^0.5.2",
+    "sass": "^1.41.1",
+    "sharp": "^0.30.1"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^17.0.2",
+    "autoprefixer": "^10.4.2",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^12.0.10",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.18"
+  }
+}

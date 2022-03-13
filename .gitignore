@@ -1,11 +1,14 @@
 /.vscode/
 
+.DS_Store
+.env*
+!.env.local
+!.env*.example
+
 node_modules/
 coverage/
 build/
 dist/
-
-.env
 
 /.yarn/*
 !/.yarn/patches

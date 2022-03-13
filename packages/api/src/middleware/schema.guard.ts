@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { ParameterizedContext } from 'koa';
 
 import { CLIENT_ERROR } from '@libs/shared';
-import { validateSchema } from '@libs/utility';
+import { validateSchema } from '@libs/shared';
 
 export const SchemaGuard = <T = unknown>(Schema: Joi.ObjectSchema) => {
   return async (ctx: ParameterizedContext, next: () => Promise<void>) => {

@@ -40,7 +40,7 @@ import { connectDB, db } from '@libs/database';
     const role = await db.role.create({
       data: r,
     });
-    console.log(`created role: ${role.roleId}`);
+    console.log(`created role: ${role.role}`);
   }
 
   console.log('\n---- user ----');
@@ -51,24 +51,30 @@ import { connectDB, db } from '@libs/database';
       ...admin,
       roles: {
         create: [
-          { roleId: RoleEnum.DEVELOPER.roleId },
-          { roleId: RoleEnum.ADMIN.roleId },
-          { roleId: RoleEnum.USER.roleId },
+          {
+            roleId: RoleEnum.DEVELOPER.role,
+          },
+          {
+            roleId: RoleEnum.ADMIN.role,
+          },
+          {
+            roleId: RoleEnum.USER.role,
+          },
         ],
       },
     },
   });
-  console.log(`created user:#${user.userId}\n${user.email}\n${user.password}\n`);
+  console.log(`created user:#${user.userId}\n${user.username}\n${user.email}\n${user.password}\n`);
 
   for (const u of userData) {
     const user = await db.user.create({
       data: {
         ...(await u),
         roles: {
-          create: [{ roleId: RoleEnum.USER.roleId }],
+          create: [{ roleId: RoleEnum.USER.role }],
         },
       },
     });
-    console.log(`created user:#${user.userId}\n${user.email}\n${user.password}\n`);
+    console.log(`created user:#${user.userId}\n${user.username}\n${user.email}\n${user.password}\n`);
   }
 })();

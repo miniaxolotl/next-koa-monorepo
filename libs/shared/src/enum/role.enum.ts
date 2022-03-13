@@ -1,26 +1,26 @@
 export const RoleEnum = {
   DISABLED: {
-    roleId: 'disabled',
+    role: 'disabled',
     authority: 0,
   },
   DEVELOPER: {
-    roleId: 'developer',
+    role: 'developer',
     authority: 1,
   },
   ADMIN: {
-    roleId: 'admin',
+    role: 'admin',
     authority: 2,
   },
   MODERATOR: {
-    roleId: 'moderator',
+    role: 'moderator',
     authority: 3,
   },
   PRO_USER: {
-    roleId: 'pro_user',
+    role: 'pro_user',
     authority: 4,
   },
   USER: {
-    roleId: 'user',
+    role: 'user',
     authority: 5,
   },
 };

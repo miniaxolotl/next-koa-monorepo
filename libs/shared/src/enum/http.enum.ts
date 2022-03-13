@@ -5,7 +5,7 @@
 export const SUCCESS = {
   OK: {
     status: 200,
-    message: 'Success: Ok.',
+    message: 'Success: OK.',
   },
   CREATED: {
     status: 201,

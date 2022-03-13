@@ -6,14 +6,14 @@ export const RoleGuard = (roles: RoleType[], options?: { passthrough?: boolean; 
   return async (ctx: ParameterizedContext, next: () => Promise<void>) => {
     let authorized = false;
     for (const role of ctx.data.roles) {
-      if (role.roleId === RoleEnum.DISABLED.roleId)
+      if (role.roleId === RoleEnum.DISABLED.role)
         return ctx.throw(CLIENT_ERROR.UNAUTHORIZED.status, CLIENT_ERROR.UNAUTHORIZED.message);
 
       for (const requirement of roles) {
         if (roles.length === 1 || !options?.match) {
-          if (role.roleId === requirement.roleId || role.authority >= requirement.authority) authorized = true;
+          if (role.roleId === requirement.role || role.authority >= requirement.authority) authorized = true;
         } else {
-          if (role.roleId === requirement.roleId) authorized = true;
+          if (role.roleId === requirement.role) authorized = true;
         }
       }
     }

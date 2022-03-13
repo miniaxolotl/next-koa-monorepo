@@ -1,24 +1,45 @@
+import styled from '@emotion/styled';
+
+import { FiHeart } from 'react-icons/fi';
+import { Footer } from './Footer';
+import Link from 'next/link';
 import React from 'react';
+import { withTheme } from '@emotion/react';
 
-import NavigationBar from '@components/navigation/NavigationBar';
+import { NavigationBar } from '@components/navigation/NavigationBar';
+import { Anchor, Box, BoxProps, BoxStyle } from '@libs/components';
 
-import Footer from './Footer';
+type DefaultLayoutStyle = BoxStyle & {
+  // nothing
+};
 
-interface DefaultLayoutProps {
-  children: React.ReactNode;
-}
+export type DefaultLayoutProps = BoxProps & {
+  style?: Partial<DefaultLayoutStyle>;
+};
 
-const DefaultLayout = (props: DefaultLayoutProps) => {
-  const { children } = props;
+const DefaultLayoutElement = ({ children, className, css, as, theme, style }: DefaultLayoutProps) => {
+  const DefaultLayout = styled(Box)<DefaultLayoutProps>(() => ({}));
+  const GithubLink = 'https://github.com/theluckyegg/next-koa-monorepo';
   return (
-    <div className="flex flex-col min-h-screen">
-      <NavigationBar title="next-koa-app" />
-      <div className="flex grow container flex-col basis-full items-center mx-8 pt-16 md:mx-auto md:w-1/2">
-        {children}
-      </div>
-      <Footer />
-    </div>
+    <DefaultLayout
+      as={as ?? 'div'}
+      className={`flex flex-col min-h-screen py-4${className ? ` ${className}` : ''}`}
+      css={css}
+      style={style}
+      theme={theme}
+    >
+      <NavigationBar title="next-koa-monorepo" />
+      <Box className="flex flex-col grow basis-full items-stretch mx-8 pt-16 md:mx-auto md:w-2/3">{children}</Box>
+      <Footer subText="next-koa-page © 2022">
+        Developed with <FiHeart className="inline" /> by Elias Mawa {'-'}{' '}
+        <Link href={GithubLink} passHref>
+          <Anchor className="whitespace-nowrap" href={GithubLink}>
+            Github
+          </Anchor>
+        </Link>
+      </Footer>
+    </DefaultLayout>
   );
 };
 
-export default DefaultLayout;
+export const DefaultLayout = withTheme(DefaultLayoutElement);

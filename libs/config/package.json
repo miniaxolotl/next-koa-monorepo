@@ -10,7 +10,9 @@
     "/dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "clean": "rm -rf ./dist/",
+    "watch": "echo 'watching @libs/config' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
+    "build": "echo 'building @libs/config' && tsc",
     "test": "jest"
   }
 }
