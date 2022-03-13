@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 
 import { omit } from 'lodash';
 import styled from '@emotion/styled';
@@ -100,4 +100,4 @@ const BoxElement = (
   );
 };
 
-export const Box = withTheme(React.forwardRef(BoxElement));
+export const Box = withTheme(forwardRef(BoxElement));

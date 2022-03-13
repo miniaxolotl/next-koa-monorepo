@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
@@ -49,4 +49,4 @@ const Anchor_ = (
   );
 };
 
-export const Anchor = withTheme(React.forwardRef(Anchor_));
+export const Anchor = withTheme(forwardRef(Anchor_));

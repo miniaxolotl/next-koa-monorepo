@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
@@ -35,4 +35,4 @@ const TextElement = (props: TextProps, ref: React.Ref<HTMLBaseElement>) => {
   );
 };
 
-export const Text = withTheme(React.forwardRef(TextElement));
+export const Text = withTheme(forwardRef(TextElement));

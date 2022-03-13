@@ -1,5 +1,5 @@
 import { omit } from 'lodash';
-import React, { useState } from 'react';
+import { StrictMode, forwardRef, useState } from 'react';
 
 import { motion } from 'framer-motion';
 import { withTheme } from '@emotion/react';
@@ -40,25 +40,41 @@ const FormControlInputElement = (
         onChange,
         onClick,
         value: value,
-        style: {
-          paddingLeft: style?.px ? theme.space[style.px] : undefined,
-          paddingRight: style?.px ? theme.space[style?.px] : undefined,
-          paddingTop: style?.py ? theme.space[style?.py] : undefined,
-          paddingBottom: style?.py ? theme.space[style?.py] : undefined,
+        style:
+          type == 'submit'
+            ? {
+                margin: 'auto',
+                cursor: 'pointer',
 
-          color: style?.color
-            ? style.color
-            : style?.variant === 'solid'
-            ? theme.colors.bg.base
-            : theme.colors.primary.base,
-          backgroundColor: 'transparent',
+                paddingLeft: style?.px ? theme.space[style.px] : theme.space['md'],
+                paddingRight: style?.px ? theme.space[style?.px] : theme.space['md'],
+                paddingTop: style?.py ? theme.space[style?.py] : theme.space['sm'],
+                paddingBottom: style?.py ? theme.space[style?.py] : theme.space['sm'],
 
-          borderWidth: style?.borderWidth ? style.borderWidth : style?.variant === 'ghost' ? undefined : 1,
-          borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
-          // borderColor: style?.borderColor ?? colorScheme ?? theme.colors.primary.base,
+                borderWidth: style?.borderWidth ? style?.borderWidth : style?.variant === 'ghost' ? undefined : 1,
+                borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
+              }
+            : {
+                flex: '0 1 auto',
+                flexBasis: 0,
+                paddingLeft: style?.px ? theme.space[style.px] : theme.space['md'],
+                paddingRight: style?.px ? theme.space[style?.px] : theme.space['md'],
+                paddingTop: style?.py ? theme.space[style?.py] : theme.space['sm'],
+                paddingBottom: style?.py ? theme.space[style?.py] : theme.space['sm'],
 
-          fontSize: style?.size ? theme.fontSizes[style.size] : theme.fontSizes['md'],
-        },
+                color: style?.color
+                  ? style.color
+                  : style?.variant === 'solid'
+                  ? theme.colors.bg.base
+                  : theme.colors.primary.base,
+                backgroundColor: 'transparent',
+
+                borderWidth: style?.borderWidth ? style.borderWidth : style?.variant === 'ghost' ? undefined : 1,
+                borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
+                // borderColor: style?.borderColor ?? colorScheme ?? theme.colors.primary.base,
+
+                fontSize: style?.size ? theme.fontSizes[style.size] : theme.fontSizes['md'],
+              },
       }}
     >
       {children}
@@ -66,7 +82,7 @@ const FormControlInputElement = (
   );
 };
 
-const FormControlInput = withTheme(React.forwardRef(FormControlInputElement));
+const FormControlInput = withTheme(forwardRef(FormControlInputElement));
 
 const FormControlElement = (
   props: Omit<FormControlProps, 'onChange' | 'onClick'> & {
@@ -76,7 +92,7 @@ const FormControlElement = (
   ref: React.Ref<HTMLInputElement>,
 ) => {
   const { children, onChange, onClick, theme, type, error, name, value, geterror, defaultValue } = props;
-  const [data, setData] = useState(value ?? defaultValue ?? '');
+  const [data, setData] = useState(type === 'submit' ? name : value ?? defaultValue ?? '');
   const [IError, setIError] = useState(error);
   // const [active, setActive] = useState(false);
 
@@ -91,7 +107,7 @@ const FormControlElement = (
   };
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <div className="flex flex-col">
         {/* {type !== 'submit' && <Span as="label">{startCase(label ?? name)}</Span>} */}
         <FormControlInput
@@ -124,8 +140,8 @@ const FormControlElement = (
           </motion.div>
         )}
       </div>
-    </React.StrictMode>
+    </StrictMode>
   );
 };
 
-export const FormControl = withTheme(React.forwardRef(FormControlElement));
+export const FormControl = withTheme(forwardRef(FormControlElement));

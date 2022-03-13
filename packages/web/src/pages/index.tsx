@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { DefaultLayout } from '@components/layout';
+
 import { Box, Button, Heading, Span } from '@libs/components';
 
 const Index = () => {

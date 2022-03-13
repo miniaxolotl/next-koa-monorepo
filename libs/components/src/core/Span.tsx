@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
@@ -39,4 +39,4 @@ const SpanElement = (props: SpanProps, ref: React.Ref<HTMLBaseElement>) => {
   );
 };
 
-export const Span = withTheme(React.forwardRef(SpanElement));
+export const Span = withTheme(forwardRef(SpanElement));

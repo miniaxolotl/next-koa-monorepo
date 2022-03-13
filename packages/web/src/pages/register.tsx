@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { Box } from '@libs/components';
 import { DefaultLayout } from '@components/layout';
-import { Box, Button } from '@libs/components';
 import { FormControl, useHookForm } from '@libs/hook-form';
 
 import { CreateUserSchema, CreateUserType } from '@libs/shared';
@@ -28,7 +28,7 @@ const Register = () => {
           <FormControl type="text" error={getError('username')} {...register('username')} />
           <FormControl type="password" error={getError('password')} {...register('password')} />
           <FormControl type="password" error={getError('confirmPassword')} {...register('confirmPassword')} />
-          <Button style={{ variant: 'ghost' }}>register</Button>
+          <FormControl type="submit" name="register" />
         </form>
       </Box>
     </DefaultLayout>

@@ -1,5 +1,4 @@
-import React from 'react';
-
+// TODO: Add forwardRef
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
 
