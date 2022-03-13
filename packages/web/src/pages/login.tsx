@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { Box } from '@libs/components';
 import { DefaultLayout } from '@components/layout';
-import { Box, Button } from '@libs/components';
 import { FormControl, useHookForm } from '@libs/hook-form';
 
 import { AuthSchema, AuthType } from '@libs/shared';
@@ -30,16 +30,7 @@ const Login = () => {
         <form className="flex flex-col space-y-2 w-full md:w-96" onSubmit={handleSubmit(onSubmit)}>
           <FormControl type="text" error={getError('username')} {...register('username')} />
           <FormControl type="password" error={getError('password')} {...register('password')} />
-          <Button
-            style={{ variant: 'ghost' }}
-            type="submit"
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-          >
-            login
-          </Button>
+          <FormControl type="submit" name="login" />
         </form>
       </Box>
     </DefaultLayout>

@@ -3,12 +3,22 @@ import { createContext, useCallback, useContext, useState } from 'react';
 
 import { cookieStorage } from '@libs/utility';
 
-import { baseTheme } from './base.theme';
-import { darkTheme } from './dark.theme';
+import { baseTheme } from '../../themes/src/base.theme';
+import { darkTheme } from '../../themes/src/dark.theme';
 
 const key = 'theme';
 
 export type ThemeType = 'dark' | 'light';
+
+type ThemeList = {
+  [key in ThemeType]: Theme;
+};
+
+// NOTE: When you add a new theme, you must add it to the theme list.
+const theme_list: ThemeList = {
+  light: baseTheme,
+  dark: darkTheme,
+};
 
 const defaultState: ThemeType = 'dark';
 
@@ -18,7 +28,10 @@ export interface ThemeContextProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-export const ThemeContext = createContext<ThemeContextProps>(null!);
+export const ThemeContext = createContext<ThemeContextProps>({
+  theme: defaultState,
+  useTheme: (_theme: ThemeType) => undefined,
+});
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -40,12 +53,7 @@ export const ThemeProvider = ({ children, cookies, state }: ThemeProviderProps) 
   const [theme, useTheme] = useState(_state);
   return (
     <ThemeContext.Provider value={{ theme, useTheme } as ThemeContextProps}>
-      <EmotionThemeProvider
-        theme={
-          theme === 'light' ? baseTheme : darkTheme
-          // : { ...baseTheme, ...darkTheme, colors: { ...baseTheme.colors, ...darkTheme.colors } }
-        }
-      >
+      <EmotionThemeProvider theme={theme ? theme_list[theme] : baseTheme}>
         <Global
           styles={(_theme) => {
             const theme: Theme = _theme as Theme;

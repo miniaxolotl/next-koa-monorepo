@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
@@ -20,13 +20,13 @@ const Button_ = (
   ref: React.Ref<HTMLBaseElement>,
 ) => {
   const Button = styled(Span)<ButtonProps>(({ theme, style }) => ({
-    paddingLeft: style?.px ? theme.space[style.px] : undefined,
-    paddingRight: style?.px ? theme.space[style?.px] : undefined,
-    paddingTop: style?.py ? theme.space[style?.py] : undefined,
-    paddingBottom: style?.py ? theme.space[style?.py] : undefined,
+    paddingLeft: style?.px ? theme.space[style.px] : theme.space['md'],
+    paddingRight: style?.px ? theme.space[style?.px] : theme.space['md'],
+    paddingTop: style?.py ? theme.space[style?.py] : theme.space['sm'],
+    paddingBottom: style?.py ? theme.space[style?.py] : theme.space['sm'],
 
     borderWidth: style?.borderWidth ? style?.borderWidth : style?.variant === 'ghost' ? undefined : 1,
-    borderRadius: style?.borderRadius ? theme.radius[style?.borderRadius] : undefined,
+    borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
     // borderColor: style?.borderColor ?? theme.colors.primary.base,
 
     ':hover': {
@@ -51,4 +51,4 @@ const Button_ = (
   );
 };
 
-export const Button = withTheme(React.forwardRef(Button_));
+export const Button = withTheme(forwardRef(Button_));

@@ -11,7 +11,7 @@
     "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "strictNullChecks": true,
     "skipLibCheck": true,
 
@@ -45,6 +45,6 @@
     "allowJs": true,
     "noEmit": true
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "srx/**/*.tsx", "src/*.ts", "src/*.tsx"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/*.ts", "src/*.tsx"],
   "exclude": ["node_modules/", "**/spec.ts"]
 }

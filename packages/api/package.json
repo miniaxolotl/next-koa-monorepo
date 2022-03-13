@@ -18,7 +18,7 @@
     "watch": "nodemon --watch '../api/src' --watch '../web/src' --watch '../../libs/components/src' --watch '../../libs/config/src' --watch '../../libs/crypt/src' --watch '../../libs/database/src' --watch '../../libs/shared/src' --watch '../../libs/tool/src' --watch '../../libs/utility/src' -e ts,tsx --exec ts-node -r tsconfig-paths/register -r ts-node ./src/server.ts",
     "serve": "yarn watch",
     "build": "echo 'building api' && ttsc",
-    "start": "echo 'starting api' && node ../../dist/packages/api/src/server.js",
+    "start": "echo 'starting api' && node ./dist/server.js",
     "clean": "rm -rf ../../dist/"
   },
   "bugs": {

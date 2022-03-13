@@ -15,6 +15,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": false,
     "strictNullChecks": true,
+    "skipLibCheck": true,
 
     /* module resolution options */
     "isolatedModules": true,
@@ -22,7 +23,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "checkJs": true,
     "types": ["node", "react"],
     "baseUrl": "./src",

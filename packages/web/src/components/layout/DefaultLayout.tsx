@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 import { withTheme } from '@emotion/react';
 
-import { NavigationBar } from '@components/navigation/NavigationBar';
+import { NavigationBar } from '@components/navigation';
 import { Anchor, Box, BoxProps, BoxStyle } from '@libs/components';
 
 type DefaultLayoutStyle = BoxStyle & {

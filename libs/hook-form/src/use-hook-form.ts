@@ -6,7 +6,7 @@ import { uuid } from '@libs/utility';
 
 import { useForceUpdate } from '@libs/hooks';
 
-import { useJoiValidationResolver } from './use-form-resolver';
+import { HookFormResolver, useJoiValidationResolver } from './use-form-resolver';
 
 export type HandleSubmit<T> = (
   data: Partial<{ [key in keyof T]: string }>,
@@ -23,10 +23,10 @@ export type HookFormConfig<T> = {
   options: HookFormConfigOptions<T>;
 };
 
-export type HookFormConfigOptions<T = { [key: string]: string }, K = Partial<T>> = {
+export type HookFormConfigOptions<T = { [key: string]: string }> = {
   id: string;
   defaultValues: Partial<{ [key: string]: string }>;
-  resolver: (data: Partial<{ [key in keyof T]: string }>) => HookFormState<K>;
+  resolver: HookFormResolver<T>;
 };
 
 const createHookForm = <T = { [key: string]: string }>(
@@ -84,7 +84,9 @@ const createHookForm = <T = { [key: string]: string }>(
     return (event: SyntheticEvent<HTMLFormElement>) => {
       event.preventDefault();
       event.stopPropagation();
-      const res = resolver(state.current.values);
+      const res = resolver(state.current.values, { resolve: true });
+      state.current.errors = res.errors;
+      state.current.values = res.values;
       forceUpdate();
       if (Object.keys(res.errors).length > 0) {
         return onSubmit(state.current.values, res.errors);
@@ -106,7 +108,6 @@ export const useHookForm = <T extends { [key: string]: string }>({
     values: {},
     errors: {},
   });
-
   useEffect(() => {
     return () => {
       // do nothing
