@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    branches: [main, qa]
+  pull_request:
+    branches: [main, qa]
+
+jobs:
+  build:
+    name: Build Project
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [16.x]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Lint Project
+        run: yarn lint
+
+      - name: Build Library
+        run: yarn build:libs
+
+      - name: Build API
+        run: yarn build:api
+
+      - name: Build Web Client
+        run: yarn build:web
+
+      - name: Yarn Audit
+        run: yarn npm audit --all
+        continue-on-error: true

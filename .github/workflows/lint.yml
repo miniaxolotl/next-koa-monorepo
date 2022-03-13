@@ -1,0 +1,36 @@
+name: lint
+
+on: [push, pull_request]
+
+jobs:
+  run-eslint:
+    name: Lint Entire Codebase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Repository
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install Packages
+        run: yarn install --frozen-lockfile
+
+      - name: Lint All Workspaces
+        run: yarn lint
+
+      - name: 'Lint Workspace: libs'
+        run: yarn lint:libs
+
+      - name: 'Lint Workspace: web'
+        run: yarn lint:web
+
+      - name: 'Lint Workspace: api'
+        run: yarn lint:api
