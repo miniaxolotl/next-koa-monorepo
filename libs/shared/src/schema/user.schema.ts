@@ -11,7 +11,7 @@ export const CreateUserSchema = Joi.object({
   username: Joi.string().min(3).max(32).alphanum().lowercase().required(),
   password: Joi.string().min(8).max(256).trim().required(),
   confirmPassword: Joi.string()
-    .label('Password confirmation')
+    .label('Confirm Password')
     .min(8)
     .max(256)
     .trim()
