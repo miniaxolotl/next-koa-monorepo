@@ -5,7 +5,7 @@ import { RootStore, useHydrate } from './state/root.state';
 // export type RootStateType = Record<string, unknown>;
 export type RootStateType = { [key: string]: unknown };
 
-export const RootContext = createContext<RootStore<RootStateType>>(null);
+export const RootContext = createContext<RootStore<RootStateType> | null>(null);
 
 export interface StateProviderProps<StateType = RootStateType> {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export const StateProvider = ({ children, cookies, state, defaultState }: StateP
 
 export const useRootState = (selector: number | string) => {
   const store = useContext(RootContext);
-  return store.useState(selector);
+  return store?.useState(selector);
 };
 
 export const useRootDispatch = <T extends RootStateType>(state: Partial<T>) => {

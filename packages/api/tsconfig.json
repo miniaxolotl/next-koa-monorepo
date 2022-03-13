@@ -1,8 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
     "target": "es2015",
     "baseUrl": ".",
+    "declaration": true,
+    "outDir": "./dist",
     "paths": {
       "@backend/controller": ["src/controller"],
       "@backend/controller/*": ["src/controller/*"],
@@ -15,6 +18,6 @@
       }
     ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "*.ts", "*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/*.ts", "src/*.tsx"],
   "exclude": ["../../node_modules/", "next-env.d.ts", "../../node_modules/next/", "../../node_modules/react/"]
 }

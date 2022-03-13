@@ -4,7 +4,8 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import { withTheme } from '@emotion/react';
-import { Text, TextProps, TextStyle } from '@libs/components';
+import { Text, TextProps, TextStyle } from '../core';
+// import { Text, TextProps, TextStyle } from '@libs/components';
 
 type AnchorStyle = TextStyle & {
   // nothing
@@ -21,9 +22,9 @@ const Anchor_ = (
 ) => {
   const router = useRouter();
   const Anchor = styled(Text)<AnchorProps>(() => ({
-    color: router.route === href ? theme.colors.alt.dark : null,
+    color: router.route === href ? theme.colors.alt.dark : undefined,
     ':hover': {
-      filter: router.route === href ? null : 'opacity(0.80)',
+      filter: router.route === href ? undefined : 'opacity(0.80)',
     },
   }));
   return (
@@ -35,12 +36,12 @@ const Anchor_ = (
         css,
         style,
         theme,
-        href,
+        href: href ?? '',
       }}
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (router.route !== href) router.push(href);
+        if (href && router.route !== href) router.push(href);
       }}
     >
       {children}

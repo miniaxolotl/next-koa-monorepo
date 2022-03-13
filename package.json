@@ -48,7 +48,7 @@
     "watch:lib-stores": "yarn workspace @libs/stores watch",
     "watch:lib-themes": "yarn workspace @libs/themes watch",
     "watch:lib-utility": "yarn workspace @libs/utility watch",
-    "build": "concurrently 'yarn build:libs' 'yarn build:api' 'yarn build:web'",
+    "build": "yarn build:libs && concurrently 'yarn build:api' 'yarn build:web'",
     "build:api": "yarn workspace api build",
     "build:web": "yarn workspace web build",
     "build:libs": "yarn build:lib-utility && yarn build:lib-themes && yarn build:lib-components && yarn build:lib-config && yarn build:lib-crypt && yarn build:lib-database && yarn build:lib-hooks && yarn build:lib-hook-form && yarn build:lib-shared && yarn build:lib-stores",

@@ -20,7 +20,7 @@ export type FormControlProps = SpanProps & {
   value?: string;
   defaultValue?: string;
   id?: string;
-  geterror?: () => string;
+  geterror?: () => string | undefined;
 };
 
 const FormControlInputElement = (

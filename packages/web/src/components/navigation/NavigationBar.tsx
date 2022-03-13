@@ -4,8 +4,7 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 // import { FiMoon, FiSun } from 'react-icons/fi';
 
-import { Anchor, Button } from '@components/misc';
-import { Box, BoxProps, BoxStyle, Span } from '@libs/components';
+import { Anchor, Box, BoxProps, BoxStyle, Button, Span } from '@libs/components';
 
 import { withTheme } from '@emotion/react';
 

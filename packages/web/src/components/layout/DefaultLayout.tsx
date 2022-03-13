@@ -6,9 +6,8 @@ import Link from 'next/link';
 import React from 'react';
 import { withTheme } from '@emotion/react';
 
-import { Anchor } from '@components/misc';
 import { NavigationBar } from '@components/navigation/NavigationBar';
-import { Box, BoxProps, BoxStyle } from '@libs/components';
+import { Anchor, Box, BoxProps, BoxStyle } from '@libs/components';
 
 type DefaultLayoutStyle = BoxStyle & {
   // nothing
@@ -34,7 +33,9 @@ const DefaultLayoutElement = ({ children, className, css, as, theme, style }: De
       <Footer subText="next-koa-page © 2022">
         Developed with <FiHeart className="inline" /> by Elias Mawa {'-'}{' '}
         <Link href={GithubLink} passHref>
-          <Anchor className="whitespace-nowrap">Github</Anchor>
+          <Anchor className="whitespace-nowrap" href={GithubLink}>
+            Github
+          </Anchor>
         </Link>
       </Footer>
     </DefaultLayout>

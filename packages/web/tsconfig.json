@@ -9,7 +9,11 @@
     /* typechecking options */
     "strict": true,
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
 
     /* module resolution options */
     "isolatedModules": true,
@@ -39,9 +43,8 @@
     },
     "incremental": true,
     "allowJs": true,
-    "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "*.ts", "*.tsx"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "srx/**/*.tsx", "src/*.ts", "src/*.tsx"],
   "exclude": ["node_modules/", "**/spec.ts"]
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
 
-import { Span, SpanProps, SpanStyle } from '@libs/components';
+import { Span, SpanProps, SpanStyle } from '../core';
 
 type ButtonStyle = SpanStyle & {
   // colorScheme?: string;
@@ -20,13 +20,13 @@ const Button_ = (
   ref: React.Ref<HTMLBaseElement>,
 ) => {
   const Button = styled(Span)<ButtonProps>(({ theme, style }) => ({
-    paddingLeft: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
-    paddingRight: style?.px ?? theme.space[style?.px] ?? theme.space['md'],
-    paddingTop: style?.py ?? theme.space[style?.py] ?? theme.space['sm'],
-    paddingBottom: style?.py ?? theme.space[style?.py] ?? theme.space['sm'],
+    paddingLeft: style?.px ? theme.space[style.px] : undefined,
+    paddingRight: style?.px ? theme.space[style?.px] : undefined,
+    paddingTop: style?.py ? theme.space[style?.py] : undefined,
+    paddingBottom: style?.py ? theme.space[style?.py] : undefined,
 
-    borderWidth: style?.borderWidth ?? style?.variant === 'ghost' ? null : 1,
-    borderRadius: theme.radius[style?.borderRadius] ?? theme.radius['md'],
+    borderWidth: style?.borderWidth ? style?.borderWidth : style?.variant === 'ghost' ? undefined : 1,
+    borderRadius: style?.borderRadius ? theme.radius[style?.borderRadius] : undefined,
     // borderColor: style?.borderColor ?? theme.colors.primary.base,
 
     ':hover': {

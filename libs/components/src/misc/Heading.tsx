@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { withTheme } from '@emotion/react';
 
-import { Box, BoxProps, BoxStyle } from '@libs/components';
+import { Box, BoxProps, BoxStyle } from '../core';
 
 type HeadingStyle = BoxStyle & {
   // nothing
@@ -17,7 +17,7 @@ export type HeadingProps = BoxProps & {
 const Heading_ = ({ children, className, css, as, theme, style }: HeadingProps) => {
   const Heading = styled(Box)<HeadingProps>(({ theme }) => ({
     fontFamily: `'Secular One', sans-serif`,
-    fontSize: theme.headingSizes[style?.size] ?? theme.headingSizes['xs'],
+    fontSize: style?.size ? theme.fontSizes[style.size] : theme.fontSizes['xs'],
   }));
   return (
     <Heading

@@ -3,8 +3,7 @@ import React from 'react';
 import { NextPage } from 'next';
 
 import { DefaultLayout } from '@components/layout/DefaultLayout';
-import { Heading } from '@components/misc';
-import { Text } from '@libs/components';
+import { Heading, Text } from '@libs/components';
 
 type ErrorPageProps = {
   statusCode: number;
