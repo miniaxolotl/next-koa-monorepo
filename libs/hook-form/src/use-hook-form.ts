@@ -38,7 +38,7 @@ const createHookForm = <T = { [key: string]: string }>(
   const forceUpdate = useForceUpdate();
 
   const setValue = (key: keyof T, value?: string) => {
-    state.current.values[key as string] = value ?? null;
+    state.current.values[key as string] = value ?? undefined;
   };
 
   const getValue = (key: keyof T) => {
@@ -46,11 +46,11 @@ const createHookForm = <T = { [key: string]: string }>(
   };
 
   const setError = (key: keyof T, value?: string) => {
-    state.current.errors[key as string] = value ?? null;
+    state.current.errors[key as string] = value ?? undefined;
   };
 
   const getError = (key: keyof T) => {
-    return state.current.errors[key];
+    return state.current.errors[key] ?? undefined;
   };
 
   const handleChange = (key: string, value: string) => {
