@@ -10,7 +10,6 @@ generator client {
 model User {
   userId   String @unique @db.VarChar(16)
   email    String @unique @db.VarChar(64)
-  username String @unique @db.VarChar(64)
   password String @db.VarChar(128)
 
   deleted DateTime?

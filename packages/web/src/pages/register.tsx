@@ -25,7 +25,6 @@ const Register = () => {
       <Box className="flex justify-center">
         <form className="flex flex-col space-y-2 w-full md:w-96" onSubmit={handleSubmit(onSubmit)}>
           <FormControl type="text" error={getError('email')} {...register('email')} />
-          <FormControl type="text" error={getError('username')} {...register('username')} />
           <FormControl type="password" error={getError('password')} {...register('password')} />
           <FormControl type="password" error={getError('confirmPassword')} {...register('confirmPassword')} />
           <FormControl type="submit" name="register" />

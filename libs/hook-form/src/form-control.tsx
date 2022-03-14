@@ -33,7 +33,7 @@ const FormControlInputElement = (
   const { children, onChange, onClick, type, value, style, theme } = props;
   return (
     <input
-      {...omit(props, 'theme')}
+      {...omit(props, 'theme', 'geterror')}
       {...{
         ref,
         type: type ? type : 'text',

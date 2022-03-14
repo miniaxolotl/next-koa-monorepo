@@ -68,7 +68,6 @@ const createHookForm = <T = { [key: string]: string }>(
       setValue(key, getValue(key) ?? defaultValues ? defaultValues[key as string] : '');
       setError(key);
     }, [key]);
-
     return {
       key,
       onChange: handleChange,
