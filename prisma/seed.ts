@@ -18,7 +18,6 @@ import { connectDB, db } from '@libs/database';
   const admin: Prisma.UserCreateInput = {
     userId: createID(),
     email: ServerConfig.ADMIN_EMAIL,
-    username: ServerConfig.ADMIN_USER,
     password: await genHash(ServerConfig.ADMIN_PASS),
   };
 
@@ -26,7 +25,6 @@ import { connectDB, db } from '@libs/database';
     ..._.times(10, async () => ({
       userId: createID(),
       email: `${createID(6)}@emawa.io`,
-      username: `${createID(8)}`,
       password: await seed_password(),
     })),
   ];
@@ -64,7 +62,7 @@ import { connectDB, db } from '@libs/database';
       },
     },
   });
-  console.log(`created user:#${user.userId}\n${user.username}\n${user.email}\n${user.password}\n`);
+  console.log(`created user:#${user.userId}\n${user.email}\n${user.password}\n`);
 
   for (const u of userData) {
     const user = await db.user.create({
@@ -75,6 +73,6 @@ import { connectDB, db } from '@libs/database';
         },
       },
     });
-    console.log(`created user:#${user.userId}\n${user.username}\n${user.email}\n${user.password}\n`);
+    console.log(`created user:#${user.userId}\n${user.email}\n${user.password}\n`);
   }
 })();

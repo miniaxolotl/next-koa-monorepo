@@ -3,12 +3,11 @@ import { db } from '@libs/database';
 import { genHash } from '@libs/crypt';
 import { RoleEnum, UserType, UserUniqueValues } from '@libs/shared';
 
-export const createUser = async ({ username, email, password }: UserType) => {
+export const createUser = async ({ email, password }: UserType) => {
   const passwordHash: string = await genHash(password);
   const result = await db.user.create({
     data: {
       userId: createID(),
-      username,
       password: passwordHash,
       email,
       roles: { create: { roleId: 'user' } },
@@ -18,10 +17,10 @@ export const createUser = async ({ username, email, password }: UserType) => {
 };
 
 export const getUser = async (
-  { userId, email, username }: Partial<UserUniqueValues>,
+  { userId, email }: Partial<UserUniqueValues>,
   { include }: { include?: Record<string, boolean> } = {},
 ) => {
-  const result = await db.user.findMany({ where: { OR: { userId, email, username } }, include });
+  const result = await db.user.findMany({ where: { OR: { userId, email } }, include });
   return result;
 };
 
@@ -40,11 +39,6 @@ export const getUserById = async (userId: string, { include }: { include?: Recor
 
 export const getUserByEmail = async (email: string, { include }: { include?: Record<string, boolean> } = {}) => {
   const result = await db.user.findUnique({ where: { email }, include });
-  return result;
-};
-
-export const getUserByUsername = async (username: string, { include }: { include?: Record<string, boolean> } = {}) => {
-  const result = await db.user.findUnique({ where: { username }, include });
   return result;
 };
 

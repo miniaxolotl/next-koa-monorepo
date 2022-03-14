@@ -3,7 +3,7 @@ import Router from 'koa-router';
 
 import { AuthSchema, CLIENT_ERROR } from '@libs/shared';
 
-import { getUserByUsername } from '@backend/controller/v1/user/user.service';
+import { getUserByEmail } from '@backend/controller/v1/user/user.service';
 import { SchemaGuard, SessionGuard } from '@backend/middleware';
 import { login, refreshSession } from './session.service';
 
@@ -16,7 +16,7 @@ const router: Router = new Router();
 
 router.post('/', SchemaGuard(AuthSchema), async (ctx: ParameterizedContext) => {
   const data = ctx.data;
-  const user = await getUserByUsername(data.body.username, { include: { roles: true } });
+  const user = await getUserByEmail(data.body.email, { include: { roles: true } });
   if (!user) ctx.throw(CLIENT_ERROR.NOT_FOUND.status, CLIENT_ERROR.NOT_FOUND.message);
   const session = await login(data.body, user);
   if (!session) ctx.throw(CLIENT_ERROR.UNAUTHORIZED.status, CLIENT_ERROR.UNAUTHORIZED.message);
