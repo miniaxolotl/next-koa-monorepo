@@ -18,6 +18,7 @@ export type FormControlProps = SpanProps & {
   name: string;
   placeholder?: string;
   value?: string;
+  disabled?: boolean;
   defaultValue?: string;
   id?: string;
   geterror?: () => string | undefined;
@@ -30,7 +31,7 @@ const FormControlInputElement = (
   },
   ref: React.Ref<HTMLInputElement>,
 ) => {
-  const { children, onChange, onClick, type, value, style, theme } = props;
+  const { children, onChange, onClick, type, value, style, theme, disabled } = props;
   return (
     <input
       {...omit(props, 'theme', 'geterror')}
@@ -44,7 +45,7 @@ const FormControlInputElement = (
           type == 'submit'
             ? {
                 margin: 'auto',
-                cursor: 'pointer',
+                cursor: disabled ? 'not-allowed' : 'pointer',
 
                 paddingLeft: style?.px ? theme.space[style.px] : theme.space['md'],
                 paddingRight: style?.px ? theme.space[style?.px] : theme.space['md'],
@@ -53,6 +54,15 @@ const FormControlInputElement = (
 
                 borderWidth: style?.borderWidth ? style?.borderWidth : style?.variant === 'ghost' ? undefined : 1,
                 borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
+
+                color: disabled
+                  ? theme.colors.primary.dark
+                  : style?.color
+                  ? style.color
+                  : style?.variant === 'solid'
+                  ? theme.colors.bg.base
+                  : theme.colors.primary.base,
+                backgroundColor: disabled ? theme.colors.bg.light : 'transparent',
               }
             : {
                 flex: '0 1 auto',
@@ -62,12 +72,14 @@ const FormControlInputElement = (
                 paddingTop: style?.py ? theme.space[style?.py] : theme.space['sm'],
                 paddingBottom: style?.py ? theme.space[style?.py] : theme.space['sm'],
 
-                color: style?.color
+                color: disabled
+                  ? theme.colors.primary.dark
+                  : style?.color
                   ? style.color
                   : style?.variant === 'solid'
                   ? theme.colors.bg.base
                   : theme.colors.primary.base,
-                backgroundColor: 'transparent',
+                backgroundColor: disabled ? theme.colors.bg.light : 'transparent',
 
                 borderWidth: style?.borderWidth ? style.borderWidth : style?.variant === 'ghost' ? undefined : 1,
                 borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
@@ -92,7 +104,7 @@ const FormControlElement = (
   ref: React.Ref<HTMLInputElement>,
 ) => {
   const { children, onChange, onClick, theme, type, error, name, value, geterror, defaultValue } = props;
-  const [data, setData] = useState(type === 'submit' ? name : value ?? defaultValue ?? '');
+  const [data, setData] = useState(type === 'submit' ? value ?? name : value ?? defaultValue ?? '');
   const [IError, setIError] = useState(error);
   // const [active, setActive] = useState(false);
 

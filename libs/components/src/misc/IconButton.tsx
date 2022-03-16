@@ -5,39 +5,40 @@ import { withTheme } from '@emotion/react';
 
 import { Span, SpanProps, SpanStyle } from '../core';
 
-type ButtonStyle = SpanStyle & {
+type IconButtonStyle = SpanStyle & {
   // colorScheme?: string;
 };
 
-export type ButtonProps = SpanProps & {
-  style?: Partial<ButtonStyle>;
+export type IconButtonProps = SpanProps & {
+  style?: Partial<IconButtonStyle>;
   href?: string;
   type?: 'button' | 'submit' | 'reset';
 };
 
-const Button_ = (
-  { children, className, css, as, theme, style, href, type }: ButtonProps,
+const IconButton_ = (
+  { children, className, css, as, theme, style, href, type }: IconButtonProps,
   ref: React.Ref<HTMLBaseElement>,
 ) => {
-  const Button = styled(Span)<ButtonProps>(({ theme, style }) => ({
+  const IconButton = styled(Span)<IconButtonProps>(({ theme, style }) => ({
     paddingLeft: style?.px ? theme.space[style.px] : theme.space['md'],
     paddingRight: style?.px ? theme.space[style?.px] : theme.space['md'],
-    paddingTop: style?.py ? theme.space[style?.py] : theme.space['sm'],
-    paddingBottom: style?.py ? theme.space[style?.py] : theme.space['sm'],
+    paddingTop: style?.py ? theme.space[style?.py] : theme.space['md'],
+    paddingBottom: style?.py ? theme.space[style?.py] : theme.space['md'],
 
     borderWidth: style?.borderWidth ? style?.borderWidth : style?.variant === 'ghost' ? undefined : 1,
     borderRadius: style?.borderRadius ? theme.radius[style.borderRadius] : theme.radius['md'],
     // borderColor: style?.borderColor ?? theme.colors.primary.base,
+
     ':hover': {
       filter: 'opacity(0.85)',
     },
   }));
   return (
-    <Button
+    <IconButton
       {...{
         ref,
         as: as ?? 'button',
-        className,
+        className: `flex flex-row space-x-8 w-full${className ? ' ' + className : ''}`,
         css,
         style,
         theme,
@@ -46,8 +47,8 @@ const Button_ = (
       }}
     >
       {children}
-    </Button>
+    </IconButton>
   );
 };
 
-export const Button = withTheme(forwardRef(Button_));
+export const IconButton = withTheme(forwardRef(IconButton_));

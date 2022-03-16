@@ -11,10 +11,10 @@ import { Theme, ThemeSizeOptions, ThemeSizeOptionsExpanded } from '@libs/themes'
 export type BoxStyle = {
   align: 'left' | 'center' | 'right';
   justify: 'start' | 'center' | 'end';
-  mx: number;
-  my: number;
-  py: number;
-  px: number;
+  mx: number | string;
+  my: number | string;
+  py: number | string;
+  px: number | string;
   text: 'left' | 'center' | 'right';
   color: string;
   backgroundColor: string;

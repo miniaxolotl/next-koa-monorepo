@@ -1,4 +1,5 @@
 export type UserUniqueValues = {
+  id: number;
   userId: string;
   email: string;
 };

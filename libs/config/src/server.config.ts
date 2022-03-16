@@ -4,6 +4,10 @@ export const server_config: {
 
   HOSTNAME: string;
   SERVER_PORT: number;
+  CLIENT_PORT: number;
+
+  SERVER_HOST: string;
+  CLIENT_HOST: string;
 
   DATA_DIR: string;
   MAX_BYTES: number;
@@ -22,6 +26,10 @@ export const server_config: {
 
   HOSTNAME: process.env.HOSTNAME ?? 'localhost',
   SERVER_PORT: process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) : 2000,
+  CLIENT_PORT: process.env.CLIENT_PORT ? parseInt(process.env.CLIENT_PORT) : 2020,
+
+  SERVER_HOST: process.env.SERVER_HOST ?? `http://localhost:${process.env.SERVER_PORT ?? 2000}/api/v1`,
+  CLIENT_HOST: process.env.CLIENT_HOST ?? `http://localhost:${process.env.CLIENT_PORT ?? 2020}`,
 
   DATA_DIR: process.env.DATA_DIR ? process.env.DATA_DIR : './data',
   MAX_BYTES: process.env.MAX_BYTES ? parseInt(process.env.MAX_BYTES) : (2 << 19) * 500,
