@@ -1,22 +1,35 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
     "target": "esnext",
+    "module": "es2020",
+    "declaration": true,
     "sourceMap": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "./dist",
 
+    /* typechecking options */
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": false,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+
     /* module resolution options */
+    "isolatedModules": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "isolatedModules": false,
-
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "checkJs": true,
     "types": ["node", "react"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./src",
     "incremental": true,
-    "jsx": "preserve"
+    "allowJs": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules/", "**/spec.ts"]
 }

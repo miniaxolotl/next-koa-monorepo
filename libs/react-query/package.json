@@ -1,5 +1,5 @@
 {
-  "name": "@libs/stores",
+  "name": "@libs/react-query",
   "version": "0.0.1",
   "license": "GPL-3.0",
   "author": "Elias Mawa <elias@emawa.io>",
@@ -12,17 +12,14 @@
   ],
   "scripts": {
     "clean": "rm -rf ./dist/",
-    "watch": "echo 'watching @libs/stores' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
-    "build": "echo 'building @libs/stores' && tsc",
+    "watch": "echo 'watching @libs/react-query' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
+    "build": "echo 'building @libs/react-query' && tsc",
     "test": "jest"
   },
   "dependencies": {
-    "immer": "^9.0.12",
     "next": "^12.1.0",
     "react": "17.0.2",
-    "react-dom": "^17.0.2",
-    "recoil": "^0.6.1",
-    "zustand": "^3.7.1"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.2",

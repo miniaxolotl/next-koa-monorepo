@@ -17,7 +17,7 @@ export type AnchorProps = TextProps & {
 };
 
 const Anchor_ = (
-  { children, className, css, as, theme, style, href }: AnchorProps,
+  { children, className, css, as, theme, style, href, onClick }: AnchorProps,
   ref: React.Ref<HTMLBaseElement>,
 ) => {
   const router = useRouter();
@@ -42,6 +42,7 @@ const Anchor_ = (
         event.preventDefault();
         event.stopPropagation();
         if (href && router.route !== href) router.push(href);
+        onClick && onClick(event);
       }}
     >
       {children}

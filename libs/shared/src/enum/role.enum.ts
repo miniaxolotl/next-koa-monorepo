@@ -1,4 +1,9 @@
-export const RoleEnum = {
+export const RoleEnum: {
+  [key: string]: {
+    role: string;
+    authority: number;
+  };
+} = {
   DISABLED: {
     role: 'disabled',
     authority: 0,

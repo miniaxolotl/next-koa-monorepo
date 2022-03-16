@@ -9,7 +9,7 @@ import { useForceUpdate } from '@libs/hooks';
 import { HookFormResolver, useJoiValidationResolver } from './use-form-resolver';
 
 export type HandleSubmit<T> = (
-  data: Partial<{ [key in keyof T]: string }>,
+  data: { [key in keyof T]: string },
   errors?: Partial<{ [key in keyof T]: string }>,
 ) => void;
 
@@ -71,7 +71,7 @@ const createHookForm = <T = { [key: string]: string }>(
     return {
       key,
       onChange: handleChange,
-      id: `${key}-${id}` ?? (key as string),
+      id: `${id}-${key}` ?? (key as string),
       name: key,
       value: getValue(key),
       placeholder: startCase(key as string),
@@ -88,9 +88,9 @@ const createHookForm = <T = { [key: string]: string }>(
       state.current.values = res.values;
       forceUpdate();
       if (Object.keys(res.errors).length > 0) {
-        return onSubmit(state.current.values, res.errors);
+        return onSubmit(state.current.values as { [key in keyof T]: string }, res.errors);
       }
-      return onSubmit(state.current.values);
+      return onSubmit(state.current.values as { [key in keyof T]: string });
     };
   };
   return { register, handleSubmit, state: { setValue, getValue, setError, getError } };
@@ -102,7 +102,7 @@ export const useHookForm = <T extends { [key: string]: string }>({
 }: Omit<HookFormConfig<T>, 'options'> & {
   options?: Partial<HookFormConfigOptions<T>>;
 }) => {
-  const formID = useMemo(() => id ?? uuid(), [id]);
+  const formID = useMemo(() => `${id}-form` ?? uuid(), [id]);
   const state = useRef<HookFormState<T>>({
     values: {},
     errors: {},

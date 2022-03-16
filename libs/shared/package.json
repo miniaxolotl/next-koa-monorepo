@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "watch": "echo 'watching @libs/database' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
+    "watch": "echo 'watching @libs/shared' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/shared' && tsc",
     "clean": "rm -rf ./dist/"
   }

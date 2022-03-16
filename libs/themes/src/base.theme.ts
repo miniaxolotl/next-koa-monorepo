@@ -149,7 +149,7 @@ const baseThemeColors = {
 };
 
 export type ThemeSizeOptionsExpanded = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-export type ThemeSizeOptions = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type ThemeSizeOptions = 'sm' | 'md' | 'lg';
 
 export const baseTheme = {
   colors: {
