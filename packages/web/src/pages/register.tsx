@@ -4,10 +4,12 @@ import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
 import { Box } from '@libs/components';
-import { DefaultLayout } from '@components/layout';
+import { createSessionState } from '@libs/stores';
+import { useFetch } from '@libs/hooks';
 import { CreateUserSchema, CreateUserType } from '@libs/shared';
 import { FormControl, useHookForm } from '@libs/hook-form';
-import { createSessionState, useRegister } from '@libs/stores';
+
+import { DefaultLayout } from '@components/layout';
 
 const Register = () => {
   const {
@@ -20,6 +22,7 @@ const Register = () => {
   });
 
   const router = useRouter();
+  const { fetch } = useFetch();
   const [session, setSession] = useRecoilState(createSessionState);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +34,15 @@ const Register = () => {
     if (errors) console.log(errors);
     setLoading(true);
     try {
-      await useRegister(setSession, data);
+      const response = await fetch('/auth', {
+        method: 'post',
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        setSession(await response.json());
+      } else {
+        throw new Error(response.statusText);
+      }
       router.replace('/');
     } catch (e) {
       console.log(e);

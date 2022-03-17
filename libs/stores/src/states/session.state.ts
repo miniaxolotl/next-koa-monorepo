@@ -18,35 +18,3 @@ export const createSessionState = atom<SessionState>({
   },
   effects: [cookiePersist],
 });
-
-// const useRegister = selector({
-//   key: 'session.register',
-//   get: ({ get }) => {
-//     // do something
-//   },
-// });
-
-export const useLogin = async (setSession: SetterOrUpdater<SessionState>, data: AuthType) => {
-  const { fetch } = useFetch();
-  const response = await fetch('/auth', {
-    method: 'post',
-    body: JSON.stringify(data),
-  });
-  if (response.ok) {
-    setSession(await response.json());
-  } else {
-    throw new Error(response.statusText);
-  }
-};
-export const useRegister = async (setSession: SetterOrUpdater<SessionState>, data: CreateUserType) => {
-  const { fetch } = useFetch();
-  const response = await fetch('/user', {
-    method: 'post',
-    body: JSON.stringify(data),
-  });
-  if (response.ok) {
-    setSession(await response.json());
-  } else {
-    throw new Error(response.statusText);
-  }
-};
