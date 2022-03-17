@@ -8,7 +8,6 @@ export const RoleGuard = (roles: RoleType[], options?: { passthrough?: boolean; 
     for (const role of ctx.data.roles) {
       if (role.roleId === RoleEnum.DISABLED.role)
         return ctx.throw(CLIENT_ERROR.UNAUTHORIZED.status, CLIENT_ERROR.UNAUTHORIZED.message);
-
       for (const requirement of roles) {
         if (roles.length === 1 || !options?.match) {
           if (role.roleId === requirement.role || role.authority >= requirement.authority) authorized = true;
@@ -17,7 +16,6 @@ export const RoleGuard = (roles: RoleType[], options?: { passthrough?: boolean; 
         }
       }
     }
-
     if (authorized || options?.passthrough) return await next();
     return ctx.throw(CLIENT_ERROR.UNAUTHORIZED.status, CLIENT_ERROR.UNAUTHORIZED.message);
   };

@@ -17,10 +17,10 @@ export const createUser = async ({ email, password }: UserType) => {
 };
 
 export const getUser = async (
-  { userId, email }: Partial<UserUniqueValues>,
+  { id, userId, email }: Partial<UserUniqueValues>,
   { include }: { include?: Record<string, boolean> } = {},
 ) => {
-  const result = await db.user.findMany({ where: { OR: { userId, email } }, include });
+  const result = await db.user.findMany({ where: { OR: { id, userId, email } }, include });
   return result;
 };
 
@@ -29,7 +29,15 @@ export const getUserAll = async ({ include }: { include?: Record<string, boolean
   return result;
 };
 
-export const getUserById = async (userId: string, { include }: { include?: Record<string, boolean> } = {}) => {
+export const getUserById = async (userId: number, { include }: { include?: Record<string, boolean> } = {}) => {
+  const result = await db.user.findUnique({
+    where: { id: userId },
+    include,
+  });
+  return result;
+};
+
+export const getUserByUserId = async (userId: string, { include }: { include?: Record<string, boolean> } = {}) => {
   const result = await db.user.findUnique({
     where: { userId },
     include,
@@ -50,15 +58,15 @@ export const getUserBySessionId = async (
   return result?.user ?? null;
 };
 
-export const enableUser = async (userId: string) => {
-  const result = await db.user.update({ where: { userId }, data: { deleted: null } }).catch(() => null);
+export const enableUser = async (userId: number) => {
+  const result = await db.user.update({ where: { id: userId }, data: { deleted: null } }).catch(() => null);
   return result && result.deleted === null;
 };
 
-export const disableUser = async (userId: string) => {
+export const disableUser = async (userId: number) => {
   const result = await db.user
     .update({
-      where: { userId },
+      where: { id: userId },
       data: {
         deleted: new Date(),
         roles: {
@@ -74,7 +82,7 @@ export const disableUser = async (userId: string) => {
   return result && !result.deleted === null;
 };
 
-export const addUserRole = async (userId: string, roleId: string) => {
+export const addUserRole = async (userId: number, roleId: string) => {
   const result = await db.userRole
     .upsert({
       where: { roleId_userId: { roleId, userId } },
@@ -85,12 +93,12 @@ export const addUserRole = async (userId: string, roleId: string) => {
   return result ?? null;
 };
 
-export const getUserRole = async (userId: string, { include }: { include?: Record<string, boolean> } = {}) => {
+export const getUserRole = async (userId: number, { include }: { include?: Record<string, boolean> } = {}) => {
   const result = await db.userRole.findMany({ where: { userId }, include }).catch(() => null);
   return result && result.length > 0 ? result : null;
 };
 
-export const deleteUserRole = async (userId: string, roleId: string) => {
+export const deleteUserRole = async (userId: number, roleId: string) => {
   const result = await db.userRole
     .delete({
       where: { roleId_userId: { roleId, userId } },

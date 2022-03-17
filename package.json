@@ -22,7 +22,8 @@
     "node": ">=16.0.0 <17.0.0"
   },
   "resolutions": {
-    "styled-components": "^5"
+    "styled-components": "^5",
+    "recoil": "^0.6.0"
   },
   "scripts": {
     "lint": "yarn eslint . --ext .js,.ts,.tsx",
@@ -37,13 +38,14 @@
     "serve": "concurrently 'yarn serve:api' 'yarn serve:web'",
     "serve:api": "yarn workspace api serve",
     "serve:web": "yarn workspace web serve",
+    "watch:libs": "concurrently 'yarn watch:lib-components' 'yarn watch:lib-config' 'yarn watch:lib-crypt' 'yarn watch:lib-database' 'yarn watch:lib-hook-form' 'yarn watch:lib-hooks' 'yarn watch:lib-react-query' 'yarn watch:lib-shared' 'yarn watch:lib-stores' 'yarn watch:lib-themes' 'yarn watch:lib-utility'",
     "watch:lib-components": "yarn workspace @libs/components watch",
-    "watch:libs": "concurrently 'yarn watch:lib-components' 'yarn watch:lib-config' 'yarn watch:lib-crypt' 'yarn watch:lib-database' 'yarn watch:lib-hook-form' 'yarn watch:lib-hooks' 'yarn watch:lib-shared' 'yarn watch:lib-stores' 'yarn watch:lib-themes' 'yarn watch:lib-utility'",
     "watch:lib-config": "yarn workspace @libs/config watch",
     "watch:lib-crypt": "yarn workspace @libs/crypt watch",
     "watch:lib-database": "yarn workspace @libs/database watch",
     "watch:lib-hook-form": "yarn workspace @libs/hook-form watch",
     "watch:lib-hooks": "yarn workspace @libs/hooks watch",
+    "watch:lib-react-query": "yarn workspace @libs/react-query watch",
     "watch:lib-shared": "yarn workspace @libs/shared watch",
     "watch:lib-stores": "yarn workspace @libs/stores watch",
     "watch:lib-themes": "yarn workspace @libs/themes watch",
@@ -51,13 +53,14 @@
     "build": "yarn build:libs && concurrently 'yarn build:api' 'yarn build:web'",
     "build:api": "yarn workspace api build",
     "build:web": "yarn workspace web build",
-    "build:libs": "yarn build:lib-utility && yarn build:lib-themes && yarn build:lib-components && yarn build:lib-config && yarn build:lib-crypt && yarn build:lib-database && yarn build:lib-hooks && yarn build:lib-hook-form && yarn build:lib-shared && yarn build:lib-stores",
+    "build:libs": "yarn build:lib-shared && yarn build:lib-config && yarn build:lib-utility && yarn build:lib-themes && yarn build:lib-hooks && yarn build:lib-react-query && yarn build:lib-components && yarn build:lib-crypt && yarn build:lib-database && yarn build:lib-hook-form && yarn build:lib-stores",
     "build:lib-components": "yarn workspace @libs/components build",
     "build:lib-config": "yarn workspace @libs/config build",
     "build:lib-crypt": "yarn workspace @libs/crypt build",
     "build:lib-database": "yarn workspace @libs/database build",
     "build:lib-hook-form": "yarn workspace @libs/hook-form build",
     "build:lib-hooks": "yarn workspace @libs/hooks build",
+    "build:lib-react-query": "yarn workspace @libs/react-query build",
     "build:lib-shared": "yarn workspace @libs/shared build",
     "build:lib-stores": "yarn workspace @libs/stores build",
     "build:lib-themes": "yarn workspace @libs/themes build",
@@ -65,7 +68,7 @@
     "start": "concurrently 'yarn start:api' 'yarn start:web'",
     "start:api": "yarn workspace api start",
     "start:web": "yarn workspace web start",
-    "clean": "yarn workspace @libs/components clean && yarn workspace @libs/config clean && yarn workspace @libs/crypt clean && yarn workspace @libs/database clean && yarn workspace @libs/hook-form clean && yarn workspace @libs/hooks clean && yarn workspace @libs/shared clean && yarn workspace @libs/stores clean && yarn workspace @libs/themes clean && yarn workspace @libs/utility clean && yarn clean:api && yarn clean:web",
+    "clean": "yarn workspace @libs/components clean && yarn workspace @libs/config clean && yarn workspace @libs/crypt clean && yarn workspace @libs/database clean && yarn workspace @libs/hook-form clean && yarn workspace @libs/hooks clean && yarn workspace @libs/react-query clean && yarn workspace @libs/shared clean && yarn workspace @libs/stores clean && yarn workspace @libs/themes clean && yarn workspace @libs/utility clean && yarn clean:api && yarn clean:web",
     "clean:api": "yarn workspace api clean",
     "clean:web": "yarn workspace web clean",
     "db:reset": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate reset --force --skip-seed",
@@ -82,7 +85,7 @@
     "cross-fetch": "^3.1.5",
     "joi": "^17.4.2",
     "lodash": "^4.17.21",
-    "node-fetch": "^3.2.0"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.0",

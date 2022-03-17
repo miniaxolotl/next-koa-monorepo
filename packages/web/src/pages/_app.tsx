@@ -1,17 +1,27 @@
+import { RecoilRoot } from 'recoil';
 import App, { AppContext, AppProps } from 'next/app';
 
-import { ThemeProvider } from '@libs/themes';
-import { ThemeType } from '@libs/themes';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+
 import { cookieStorage } from '@libs/utility';
+import { ThemeProvider, ThemeType } from '@libs/themes';
 
 import '../styles/global.scss';
 
-const MyApp = (context: AppProps & { cookies: string; state: { cookies: string; theme: ThemeType } }) => {
+const queryClient = new QueryClient();
+
+const MyApp = (context: AppProps & { cookies: string; state: string }) => {
   const { Component, pageProps, cookies, state } = context;
   return (
-    <ThemeProvider state={state?.theme} cookies={cookies}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ThemeProvider state={JSON.parse(state)?.theme as ThemeType} cookies={cookies}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </Hydrate>
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 };
 
@@ -22,7 +32,7 @@ MyApp.getInitialProps = async (context: AppContext) => {
   return {
     ...appProps,
     cookies: req?.headers.cookie ?? '',
-    state,
+    state: JSON.stringify(state),
   };
 };
 

@@ -22,3 +22,5 @@ _ignore_*/
 # Documentation here: https://yarnpkg.com/features/zero-installs
 # !/.yarn/cache
 /.pnp.*
+
+* 2/

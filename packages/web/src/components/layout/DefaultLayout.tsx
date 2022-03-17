@@ -20,6 +20,8 @@ export type DefaultLayoutProps = BoxProps & {
 const DefaultLayoutElement = ({ children, className, css, as, theme, style }: DefaultLayoutProps) => {
   const DefaultLayout = styled(Box)<DefaultLayoutProps>(() => ({}));
   const GithubLink = 'https://github.com/theluckyegg/next-koa-monorepo';
+  const year = new Date().getUTCFullYear();
+  const creation = 2022;
   return (
     <DefaultLayout
       as={as ?? 'div'}
@@ -30,7 +32,7 @@ const DefaultLayoutElement = ({ children, className, css, as, theme, style }: De
     >
       <NavigationBar title="next-koa-monorepo" />
       <Box className="flex flex-col grow basis-full items-stretch mx-8 pt-16 md:mx-auto md:w-2/3">{children}</Box>
-      <Footer subText="next-koa-page © 2022">
+      <Footer subText={`next-koa-monorepo © 2022${year > creation ? '-' + year : ''}`}>
         Developed with <FiHeart className="inline" /> by Elias Mawa {'-'}{' '}
         <Link href={GithubLink} passHref>
           <Anchor className="whitespace-nowrap" href={GithubLink}>
