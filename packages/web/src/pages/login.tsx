@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { Box } from '@libs/components';
+import { useFetch } from '@libs/hooks';
 import { AuthSchema, AuthType } from '@libs/shared';
 import { FormControl, useHookForm } from '@libs/hook-form';
 
 import { DefaultLayout } from '@components/layout';
-import { createSessionState, useLogin } from '@libs/stores';
+import { createSessionState } from '@libs/stores';
 
 const Login = () => {
   const {
@@ -19,6 +20,7 @@ const Login = () => {
     options: { id: 'login' },
   });
   const router = useRouter();
+  const { fetch } = useFetch();
   const [session, setSession] = useRecoilState(createSessionState);
   const [loading, setLoading] = useState(false);
 
@@ -30,8 +32,15 @@ const Login = () => {
     setLoading(true);
     if (errors) console.log(errors);
     try {
-      await useLogin(setSession, data);
-      router.replace('/');
+      const response = await fetch('/auth', {
+        method: 'post',
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        setSession(await response.json());
+      } else {
+        throw new Error(response.statusText);
+      }
     } catch (e) {
       console.log(e);
     }
