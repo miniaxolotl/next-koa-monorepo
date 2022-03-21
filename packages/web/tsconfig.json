@@ -20,7 +20,7 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
-    "checkJs": true,
+    "checkJs": false,
     "types": ["node", "react"],
     "baseUrl": "./src",
     "paths": {
@@ -40,7 +40,7 @@
       "@data/*": ["data/*"]
     },
     "incremental": true,
-    "allowJs": true,
+    "allowJs": false,
     "noEmit": true
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/*.ts", "src/*.tsx"],

@@ -11,7 +11,7 @@
     "/dist"
   ],
   "scripts": {
-    "clean": "rm -rf ./dist/",
+    "clean": "echo 'clean @libs/react-query' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/react-query' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/react-query' && tsc",
     "test": "jest"

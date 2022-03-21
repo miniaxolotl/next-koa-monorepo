@@ -10,7 +10,7 @@
     "/dist"
   ],
   "scripts": {
-    "clean": "rm -rf ./dist/",
+    "clean": "echo 'clean @libs/hook-form' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/hook-form' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/hook-form' && tsc",
     "test": "jest"

@@ -11,7 +11,7 @@
     "/dist"
   ],
   "scripts": {
-    "clean": "rm -rf ./dist/",
+    "clean": "echo 'clean @libs/stores' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/stores' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/stores' && tsc",
     "test": "jest"

@@ -10,10 +10,10 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest",
+    "clean": "echo 'clean @libs/components' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/components' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/components' && tsc",
-    "clean": "rm -rf ./dist/"
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",

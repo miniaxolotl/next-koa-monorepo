@@ -10,10 +10,10 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest",
+    "clean": "echo 'clean @libs/crypt' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/crypt' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/crypt' && tsc",
-    "clean": "rm -rf ./dist/"
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^5.0.1"

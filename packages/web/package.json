@@ -22,7 +22,7 @@
     "serve": "next dev -p $CLIENT_PORT",
     "build": "echo 'building web' && next build",
     "start": "echo 'starting web' && next start -H 0.0.0.0 -p $CLIENT_PORT",
-    "clean": "rm -rf .next/"
+    "clean": "echo 'clean web' && rm -rf .next/"
   },
   "bugs": {
     "url": "https://github.com/theluckyegg/pndome/issues"
