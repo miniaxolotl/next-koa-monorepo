@@ -10,9 +10,9 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest",
+    "clean": "echo 'clean @libs/database' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/database' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/database' && tsc",
-    "clean": "rm -rf ./dist/"
+    "test": "jest"
   }
 }

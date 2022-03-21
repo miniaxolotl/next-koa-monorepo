@@ -10,9 +10,9 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest",
+    "clean": "echo 'clean @libs/shared' && rm -rf ./dist**",
     "watch": "echo 'watching @libs/shared' && nodemon --watch 'src/' -e ts,tsx --exec yarn build",
     "build": "echo 'building @libs/shared' && tsc",
-    "clean": "rm -rf ./dist/"
+    "test": "jest"
   }
 }

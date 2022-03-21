@@ -24,11 +24,11 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
-    "checkJs": true,
+    "checkJs": false,
     "types": ["node", "react"],
     "baseUrl": "./src",
     "incremental": true,
-    "allowJs": true
+    "allowJs": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules/", "**/spec.ts"]

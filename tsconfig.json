@@ -17,7 +17,7 @@
     "isolatedModules": false,
 
     "jsx": "preserve",
-    "checkJs": true,
+    "checkJs": false,
 
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
