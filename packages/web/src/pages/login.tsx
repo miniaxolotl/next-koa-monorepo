@@ -1,14 +1,11 @@
-import { useRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { Box } from '@libs/components';
-import { useFetch } from '@libs/hooks';
+import { DefaultLayout } from '@components/layout';
 import { AuthSchema, AuthType } from '@libs/shared';
 import { FormControl, useHookForm } from '@libs/hook-form';
-
-import { DefaultLayout } from '@components/layout';
-import { createSessionState } from '@libs/stores';
+import { RootAction, SessionAction, useStore } from '@libs/stores';
 
 const Login = () => {
   const {
@@ -20,30 +17,24 @@ const Login = () => {
     options: { id: 'login' },
   });
   const router = useRouter();
-  const { fetch } = useFetch();
-  const [session, setSession] = useRecoilState(createSessionState);
+  const { dispatch, session, user } = useStore();
   const [loading, setLoading] = useState(false);
 
+  console.log(user);
+  console.log(session);
+
   useEffect(() => {
-    session.sessionId && router.push('/');
-  });
+    if (session.sessionId) router.replace('/');
+  }, [router, session.sessionId]);
 
   const OnSubmit = async (data: AuthType, errors?: Partial<AuthType>) => {
     setLoading(true);
     if (errors) console.log(errors);
-    try {
-      const response = await fetch('/auth', {
-        method: 'post',
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        setSession(await response.json());
-      } else {
-        throw new Error(response.statusText);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch({
+      store: RootAction.SESSION,
+      type: SessionAction.LOGIN,
+      payload: data,
+    });
     setLoading(false);
   };
 

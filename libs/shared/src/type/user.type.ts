@@ -5,8 +5,8 @@ export type UserUniqueValues = {
 };
 
 export type UserType = {
+  userId: string;
   email: string;
-  password: string;
 };
 
 export type CreateUserType = {

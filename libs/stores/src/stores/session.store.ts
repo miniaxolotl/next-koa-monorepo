@@ -1,26 +1,53 @@
-import { atom, selector } from 'recoil';
+import { RootState, defaultRootState } from './';
+import { useSessionScripts, useUserScripts } from '../actions';
 
-import { localPersist } from '../hooks';
+export enum SessionAction {
+  LOGIN,
+  REGISTER,
+}
 
-export type UserState = {
-  userId: string | null;
-  email: string | null;
+export type SessionState = {
+  sessionId?: string | null;
+  userId?: string | null;
 };
 
-export const createUserState = atom<UserState>({
-  key: 'user',
-  default: {
-    userId: null,
-    email: null,
-  },
-  effects: [localPersist],
-});
+export const useSessionReducer = async (
+  state: Partial<RootState> = defaultRootState,
+  action: Partial<RootState<SessionAction>>,
+): Promise<Partial<RootState>> => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { login, register } = useSessionScripts(state);
+  const { getMe } = useUserScripts(state);
 
-export const userStore = {
-  getRoles: selector({
-    key: 'user.roles',
-    get: ({ get: _get }) => {
-      // do something
-    },
-  }),
+  if (action.action?.store == SessionAction.LOGIN) {
+    const session = await login(action.action.payload);
+    const user = await getMe(session?.sessionId);
+    return {
+      session: {
+        ...state.session,
+        ...session,
+      },
+      user: {
+        ...state.user,
+        ...user,
+      },
+    };
+  }
+
+  if (action.action?.store == SessionAction.REGISTER) {
+    const session = await register(action.action.payload);
+    const user = await getMe();
+    return {
+      session: {
+        ...state.session,
+        ...session,
+      },
+      user: {
+        ...state.user,
+        ...user,
+      },
+    };
+  }
+
+  return state;
 };
