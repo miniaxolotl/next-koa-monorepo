@@ -3,8 +3,8 @@ import App, { AppContext, AppProps } from 'next/app';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import { FetchProvider } from '@libs/hooks';
+import { StoreProvider } from '@libs/stores';
 import { cookieStorage } from '@libs/utility';
-import { StoreProvider, useHydrate } from '@libs/stores';
 import { ThemeProvider, ThemeType } from '@libs/themes';
 
 import '../styles/global.scss';

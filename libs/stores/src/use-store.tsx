@@ -15,6 +15,7 @@ type StoreProviderProps = {
 export const StoreContext = createContext<StoreContextProps>({} as StoreContextProps);
 
 export const StoreProvider = ({ children }: StoreProviderProps) => {
+  // const { token } = useFetch();
   const store = useHydrate();
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };

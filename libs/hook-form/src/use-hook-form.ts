@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { startCase } from 'lodash';
-import { MutableRefObject, SyntheticEvent, useEffect, useMemo, useRef } from 'react';
+import { MutableRefObject, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { uuid } from '@libs/utility';
 
@@ -53,29 +53,35 @@ const createHookForm = <T = { [key: string]: string }>(
     return state.current.errors[key] ?? undefined;
   };
 
-  const handleChange = (key: string, value: string) => {
-    const res = resolver({ [key]: value } as Partial<{
-      [key in keyof T]: string;
-    }>);
-    setValue(key as keyof T, value);
-    setError(key as keyof T, res.errors[key as string]);
-    // forceUpdate();
+  const handleChange = (alias?: (keyof T)[]) => {
+    return (key: string, value: string) => {
+      const res = resolver({
+        ...(alias ? { [alias[0]]: getValue(alias[0]) } : {}),
+        [key]: value,
+      } as Partial<{
+        [key in keyof T]: string;
+      }>);
+      setValue(key as keyof T, value);
+      setError(key as keyof T, res.errors[key as string]);
+    };
   };
 
-  const register = (key: keyof T) => {
+  const register = (key: keyof T, alias?: (keyof T)[]) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      setValue(key, getValue(key) ?? defaultValues ? defaultValues[key as string] : '');
+      setValue(key, getValue(key) ?? defaultValues[key as string] ?? '');
       setError(key);
     }, [key]);
     return {
       key,
-      onChange: handleChange,
+      onChange: handleChange(alias),
       id: `${id}-${key}` ?? (key as string),
       name: key,
-      value: getValue(key),
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      value: useMemo(() => getValue(key), [key]),
       placeholder: startCase(key as string),
-      geterror: () => getError(key),
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      geterror: useCallback(() => getError(key), [key]),
     };
   };
 

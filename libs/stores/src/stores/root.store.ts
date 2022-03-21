@@ -2,54 +2,60 @@ import { produce } from 'immer';
 import { useMemo } from 'react';
 import create, { SetState } from 'zustand';
 
+import { SessionAction, UserAction, UserState, useUserReducer } from './';
+import { SessionState, useSessionReducer } from './';
+
 export enum RootAction {
-  SESSION = 'session',
+  SESSION,
+  USER,
 }
 
-export type Action = {
-  store: RootAction;
-  type: string;
-  payload?: unknown;
+export type Action<T = RootAction> = {
+  store: T;
+  type: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload?: any;
 };
 
-export type RootState = {
-  dispatch: (action: Action) => void;
-  action?: Action;
+export type RootState<T = RootAction> = {
+  dispatch: (action: Action<T>) => void;
+  action?: Action<T>;
+  user: UserState;
   session: SessionState;
 };
 
-export type SessionState = {
-  sessionId?: string | null;
-  userId?: string | null;
-};
-
-const defaultState: RootState = {
-  dispatch: (action) => ({ action }),
+export const defaultRootState: Partial<RootState> = {
   session: {
     sessionId: null,
     userId: null,
   },
+  user: {
+    email: null,
+    userId: null,
+  },
 };
 
-const reducer = (
-  state: Partial<RootState> = defaultState,
+const useReducer = async (
+  state: Partial<RootState> = defaultRootState,
   action: Partial<RootState>,
-): { [key: string]: Partial<RootState[keyof RootState]> } => {
-  if (action) {
-    if (action.action?.store === RootAction.SESSION) {
+): Promise<{ [key: string]: Partial<RootState[keyof RootState]> }> => {
+  switch (action.action?.store) {
+    case RootAction.SESSION:
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      // TODO: do something
-      return { session: { sessionId: '------------------' } };
-    }
+      return await useSessionReducer(state, action as unknown as RootState<SessionAction>);
+    case RootAction.USER:
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      return await useUserReducer(state, action as unknown as RootState<UserAction>);
+    default:
+      return state;
   }
-  return state;
 };
 
-const createStore = (loadedState = defaultState) => {
+const createStore = (loadedState: RootState = defaultRootState as RootState) => {
   return create<RootState>((set: SetState<RootState>) => ({
-    ...defaultState,
+    ...defaultRootState,
     ...loadedState,
-    dispatch: (action: Action) => set(produce((state: RootState) => reducer(state, { action }))),
+    dispatch: (action: Action) => set(produce(async (state: RootState) => await useReducer(state, { action }))),
   }));
 };
 

@@ -1,11 +1,11 @@
 import { Session, User, UserRole } from '@prisma/client';
 
-import { UserType } from '@libs/shared';
+import { AuthType } from '@libs/shared';
 import { compare } from '@libs/crypt';
 import { createID } from '@libs/utility';
 import { db } from '@libs/database';
 
-export const login = async (data: UserType, user: User & { roles?: UserRole[] }) => {
+export const login = async (data: AuthType, user: User & { roles?: UserRole[] }) => {
   const { id, password } = user;
   if (!user.deleted && (await compare(data.password, password))) {
     console.log(user);

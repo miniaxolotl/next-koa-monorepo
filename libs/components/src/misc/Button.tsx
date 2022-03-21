@@ -16,7 +16,7 @@ export type ButtonProps = SpanProps & {
 };
 
 const Button_ = (
-  { children, className, css, as, theme, style, href, type }: ButtonProps,
+  { children, className, css, as, theme, style, href, type, onClick }: ButtonProps,
   ref: React.Ref<HTMLBaseElement>,
 ) => {
   const Button = styled(Span)<ButtonProps>(({ theme, style }) => ({
@@ -32,6 +32,8 @@ const Button_ = (
       filter: 'opacity(0.85)',
     },
   }));
+  console.log(onClick);
+
   return (
     <Button
       {...{

@@ -33,7 +33,7 @@ export const FetchProvider = ({ children, token }: StoreProviderProps) => {
       return fetch(`${ClientConfig.SERVER_HOST}${path}`, {
         method,
         headers: {
-          Authorization: IToken ? `Bearer ${IToken}` : '',
+          ...(IToken ? { Authorization: `Bearer ${IToken}` } : {}),
           'Content-Type': 'application/json',
           ...headers,
         },
@@ -54,7 +54,7 @@ export const FetchProvider = ({ children, token }: StoreProviderProps) => {
   );
 };
 
-export const useFetch = () => {
+export const useGlobalFetch = () => {
   const { fetch, token } = useContext(FetchContext);
   const { IToken, setIToken } = token;
 
@@ -68,3 +68,16 @@ export const useFetch = () => {
 
   return { setToken, token: IToken, fetch };
 };
+
+export const useFetch = ({ token }: { token?: string } = {}) => ({
+  fetch: (path: string, { method, headers, body }: FetchOptions) =>
+    fetch(`${ClientConfig.SERVER_HOST}${path}`, {
+      method,
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      body,
+    }),
+});
