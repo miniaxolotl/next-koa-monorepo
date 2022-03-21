@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("DB_MYSQL_URL")
+  url      = env("DB_ROOT_URL")
 }
 
 generator client {
@@ -8,6 +8,7 @@ generator client {
 }
 
 model User {
+  id       Int    @default(autoincrement())
   userId   String @unique @db.VarChar(16)
   email    String @unique @db.VarChar(64)
   password String @db.VarChar(128)
@@ -19,12 +20,12 @@ model User {
   roles    UserRole[]
   sessions Session[]
 
-  @@id([userId])
+  @@id([id])
 }
 
 model Role {
-  role      String @unique @db.VarChar(16)
-  authority Int    @unique @db.UnsignedTinyInt
+  role      String @db.VarChar(16)
+  authority Int    @unique @db.SmallInt
 
   users UserRole[]
 
@@ -33,28 +34,29 @@ model Role {
 
 model UserRole {
   roleId String @db.VarChar(16)
-  userId String @db.VarChar(16)
+  userId Int
 
   deleted DateTime?
   created DateTime  @default(now())
   updated DateTime  @updatedAt
 
   role Role @relation(fields: [roleId], references: [role])
-  user User @relation(fields: [userId], references: [userId])
+  user User @relation(fields: [userId], references: [id])
 
   @@id([roleId, userId])
 }
 
 model Session {
+  id        Int    @default(autoincrement())
   sessionId String @unique @db.VarChar(24)
-  userId    String @db.VarChar(16)
+  userId    Int
 
   deleted DateTime?
   created DateTime  @default(now())
   updated DateTime  @updatedAt
 
-  user User @relation(fields: [userId], references: [userId])
+  user User @relation(fields: [userId], references: [id])
 
-  @@id([sessionId, userId])
+  @@id([id])
   @@index([userId])
 }
