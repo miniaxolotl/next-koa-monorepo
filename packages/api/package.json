@@ -19,7 +19,7 @@
     "serve": "yarn watch",
     "build": "echo 'building api' && ttsc",
     "start": "echo 'starting api' && node ./dist/server.js",
-    "clean": "echo 'clean api' && rm -rf ../../dist**"
+    "clean": "echo 'clean api' && rm -rf ./dist**"
   },
   "bugs": {
     "url": "https://github.com/theluckyegg/next-koa-monorepo/issues"
