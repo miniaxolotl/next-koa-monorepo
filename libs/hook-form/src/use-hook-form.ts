@@ -1,143 +1,122 @@
 import Joi from 'joi';
-import { SyntheticEvent, useCallback, useEffect, useMemo } from 'react';
+import { startCase } from 'lodash';
+import { MutableRefObject, SyntheticEvent, useEffect, useMemo, useRef } from 'react';
 
 import { uuid } from '@libs/utility';
 
+import { useForceUpdate } from './use-force-update';
 import { useJoiValidationResolver } from './use-form-resolver';
-import { useHookFormData, useHookFormValue } from './HookFormProvider';
 
-export type SubmitFunc<T> = (data: T, errors?: Partial<T>) => void;
+export type HandleSubmit<T> = (
+  data: Partial<{ [key in keyof T]: string }>,
+  errors?: Partial<{ [key in keyof T]: string }>,
+) => void;
 
-export type HookFormRegisterOptions = {
-  id?: string;
-  name?: string;
-  label?: string;
+export type HookFormState<T> = {
+  values: Partial<{ [key in keyof T]: string }>;
+  errors: Partial<{ [key in keyof T]: string }>;
 };
 
-export type HookFormState<T = { [key: string]: string }> = {
-  values: Partial<T>;
-  errors: Partial<T>;
-};
-
-export type HookFormStateProps<T> = {
-  id?: string;
-  options?: HookFormOptions<T>;
-};
-
-export type HookFormProps<T> = {
+export type HookFormConfig<T> = {
   schema: Joi.Schema;
-  options?: HookFormOptions<T>;
+  options?: HookFormConfigOptions<T>;
 };
 
-export type HookFormOptions<T, K = Partial<T>> = {
-  defaultValues?: Partial<{ [key in keyof T]: string }>;
-  resolver?: (data: K) => { values: K; errors: K };
+export type HookFormConfigOptions<T = { [key: string]: string }, K = Partial<T>> = {
+  id?: string;
+  defaultValues?: Partial<{ [key: string]: string }>;
+  resolver?: (data: Partial<{ [key in keyof T]: string }>) => HookFormState<K>;
 };
 
-const HookFormState = <T extends { [key: string]: string }>({
-  id,
-  options: { defaultValues, resolver } = {},
-}: HookFormStateProps<T>) => {
-  const state = useHookFormValue();
-  const { setValue, setError } = useHookFormData();
+const createHookForm = <T = { [key: string]: string }>(
+  state: MutableRefObject<HookFormState<T>>,
+  { options }: HookFormConfig<T>,
+) => {
+  const { id, defaultValues, resolver } = options;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const forceUpdate = useForceUpdate();
 
-  const getValue = useCallback(
-    (name: keyof T) => {
-      return state[id]?.values[name as string] ?? '';
-    },
-    [id, state],
-  );
-
-  const getError = useCallback(
-    (name: keyof T) => {
-      return state[id]?.errors[name as string] ?? null;
-    },
-    [id, state],
-  );
-
-  const _setValue = useCallback(
-    (key: keyof T, value?: string) => {
-      setValue(id, key as string, value);
-    },
-    [id, setValue],
-  );
-
-  const _setError = useCallback(
-    (key: keyof T, value?: string) => {
-      setError(id, key as string, value);
-    },
-    [id, setError],
-  );
-
-  const onChangeFunc = (key: string, value: string) => {
-    const res = resolver({
-      [key]: value,
-    } as Partial<T>);
-    _setValue(key, value);
-    _setError(key, res.errors[key]);
-    return res.errors[key] as string;
+  const setValue = (key: keyof T, value?: string) => {
+    state.current.values[key as string] = value ?? null;
   };
 
-  const register = (key: keyof T, { name }: HookFormRegisterOptions = {}) => {
+  const getValue = (key: keyof T) => {
+    return state.current.values[key];
+  };
+
+  const setError = (key: keyof T, value?: string) => {
+    state.current.errors[key as string] = value ?? null;
+  };
+
+  const getError = (key: keyof T) => {
+    return state.current.errors[key];
+  };
+
+  const handleChange = (key: string, value: string) => {
+    const res = resolver({ [key]: value } as Partial<{
+      [key in keyof T]: string;
+    }>);
+    setValue(key as keyof T, value);
+    setError(key as keyof T, res.errors[key as string]);
+    // forceUpdate();
+  };
+
+  const register = (key: keyof T) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      _setValue(key, getValue(key) === '' ? defaultValues?.[key] ?? '' : getValue(key));
-      // _setValue(key, defaultValues?.[key] ?? '');
-      _setError(key, getError(key) ?? null);
-      console.log(getValue(key));
+      setValue(key, getValue(key) ?? defaultValues ? defaultValues[key as string] : '');
+      setError(key);
     }, [key]);
+
     return {
-      onChange: onChangeFunc,
-      key: `${key}-${id}`,
-      form: id,
-      name: name ?? (key as string),
+      key,
+      onChange: handleChange,
+      id: `${key}-${id}` ?? (key as string),
+      name: key,
+      value: getValue(key),
+      placeholder: startCase(key as string),
+      geterror: () => getError(key),
     };
   };
 
-  const handleSubmit = (onSubmit: SubmitFunc<T>) => {
+  const handleSubmit = (onSubmit: HandleSubmit<T>) => {
     return (event: SyntheticEvent<HTMLFormElement>) => {
       event.preventDefault();
       event.stopPropagation();
-      const res = resolver(state[id].values as Partial<T>);
+      const res = resolver(state.current.values);
+      forceUpdate();
       if (Object.keys(res.errors).length > 0) {
-        return onSubmit(state[id].values as T, res.errors);
+        return onSubmit(state.current.values, res.errors);
       }
-      return onSubmit(state[id].values as T, null);
+      return onSubmit(state.current.values, null);
     };
   };
-  return {
-    register,
-    handleSubmit,
-    state: {
-      setValue: _setValue,
-      getValue,
-      setError: _setError,
-      getError,
-    },
-  };
+  return { register, handleSubmit, state: { setValue, getValue, setError, getError } };
 };
 
 export const useHookForm = <T extends { [key: string]: string }>({
   schema,
-  options: { defaultValues, resolver } = {},
-}: HookFormProps<T>) => {
-  const id = useMemo(() => {
-    return uuid();
-  }, []);
+  options: { id, defaultValues, resolver } = {},
+}: HookFormConfig<T>) => {
+  const formID = useMemo(() => id ?? uuid(), [id]);
+  const state = useRef<HookFormState<T>>({
+    values: {},
+    errors: {},
+  });
+
   useEffect(() => {
     return () => {
       // do nothing
     };
   }, [id]);
 
-  return HookFormState({
-    id,
+  return createHookForm(state, {
+    schema,
     options: {
-      defaultValues,
+      id: formID,
+      defaultValues: defaultValues ?? {},
       // eslint-disable-next-line react-hooks/rules-of-hooks
       resolver: resolver ?? useJoiValidationResolver<T>(schema),
     },
   });
 };
-
-// export default useHookForm;
