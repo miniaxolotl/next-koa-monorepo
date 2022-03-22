@@ -40,7 +40,7 @@
     "serve": "concurrently 'yarn serve:api' 'yarn serve:web'",
     "serve:api": "yarn workspace api serve",
     "serve:web": "yarn workspace web serve",
-    "watch:libs": "concurrently 'yarn watch:lib-components' 'yarn watch:lib-config' 'yarn watch:lib-crypt' 'yarn watch:lib-database' 'yarn watch:lib-hook-form' 'yarn watch:lib-hooks' 'yarn watch:lib-shared' 'yarn watch:lib-stores' 'yarn watch:lib-themes' 'yarn watch:lib-utility'",
+    "watch:libs": "concurrently 'yarn watch:lib-components' 'yarn watch:lib-config' 'yarn watch:lib-crypt' 'yarn watch:lib-database' 'yarn watch:lib-hook-form' 'yarn watch:lib-hooks' 'yarn watch:lib-react-query' 'yarn watch:lib-shared' 'yarn watch:lib-stores' 'yarn watch:lib-themes' 'yarn watch:lib-utility'",
     "watch:lib-components": "yarn workspace @libs/components watch",
     "watch:lib-config": "yarn workspace @libs/config watch",
     "watch:lib-crypt": "yarn workspace @libs/crypt watch",
@@ -74,9 +74,9 @@
     "clean:api": "yarn workspace api clean",
     "clean:web": "yarn workspace web clean",
     "db:reset": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate reset --force --skip-seed",
-    "db:generate": "yarn prisma generate",
+    "db:generate": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma generate",
     "db:migrate": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate dev",
-    "db:seed": "yarn scripts:seed",
+    "db:seed": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn scripts:seed",
     "scripts:seed": "yarn prisma db seed"
   },
   "prisma": {
