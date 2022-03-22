@@ -1,11 +1,11 @@
 {
-  "name": "leaf-life-site",
+  "name": "next-koa-monorepo",
   "private": true,
   "version": "0.0.1",
   "packageManager": "yarn@3.1.1",
   "license": "GPL-3.0",
   "author": "First-name Last-name <user@example.com>",
-  "homepage": "https://github.com/altvapedev/leaf-life-site#readme",
+  "homepage": "https://github.com/theluckyegg/pndome#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/<username>/<repo>.git"
@@ -20,6 +20,12 @@
   ],
   "engines": {
     "node": ">=16.0.0 <17.0.0"
+  },
+  "resolutions": {
+    "styled-components": "^5",
+    "@types/react": "17.0.2",
+    "@types/node": "16.11.25",
+    "next": "11.1.4"
   },
   "scripts": {
     "lint": "yarn eslint . --ext .js,.ts,.tsx",
@@ -65,12 +71,6 @@
   },
   "prisma": {
     "seed": "yarn ts-node -r tsconfig-paths/register -r ts-node prisma/seed.ts"
-  },
-  "resolutions": {
-    "styled-components": "^5",
-    "@types/react": "17.0.2",
-    "@types/node": "16.11.25",
-    "next": "11.1.4"
   },
   "dependencies": {
     "@prisma/client": "^3.9.2",
