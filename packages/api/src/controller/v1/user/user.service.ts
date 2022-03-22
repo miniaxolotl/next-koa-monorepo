@@ -1,7 +1,7 @@
 import { createID } from '@libs/utility';
 import { db } from '@libs/database';
 import { genHash } from '@libs/crypt';
-import { RoleEnum, AuthType, UserUniqueValues } from '@libs/shared';
+import { AuthType, RoleEnum, UserUniqueValues } from '@libs/shared';
 
 export const createUser = async ({ email, password }: AuthType) => {
   const passwordHash: string = await genHash(password);
