@@ -22,7 +22,8 @@ router.post('/', SchemaGuard(AuthSchema), async (ctx: ParameterizedContext) => {
   if (!session) ctx.throw(CLIENT_ERROR.UNAUTHORIZED.status, CLIENT_ERROR.UNAUTHORIZED.message);
   ctx.body = {
     sessionId: session.sessionId,
-    userId: session.userId,
+    userId: session.user.userId,
+    expires: session.deleted,
   };
 }); // {post} /login
 
@@ -32,7 +33,7 @@ router.post('/refresh', SessionGuard(), async (ctx: ParameterizedContext) => {
   if (session) {
     ctx.body = {
       sessionId: session.sessionId,
-      userId: session.userId,
+      userId: session.user.userId,
     };
   }
 }); // {post} /login

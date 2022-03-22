@@ -2,10 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "es2020",
     "sourceMap": true,
     "lib": ["dom", "dom.iterable", "esnext"],
-
     /* typechecking options */
     "strict": true,
     "strictPropertyInitialization": false,
@@ -14,7 +13,6 @@
     "noImplicitReturns": false,
     "strictNullChecks": true,
     "skipLibCheck": true,
-
     /* module resolution options */
     "isolatedModules": true,
     "esModuleInterop": true,

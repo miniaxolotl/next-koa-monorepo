@@ -6,24 +6,20 @@ import { createID } from '@libs/utility';
 import { db } from '@libs/database';
 
 export const login = async (data: UserType, user: User & { roles?: UserRole[] }) => {
-  const { userId, password } = user;
+  const { id, password } = user;
   if (!user.deleted && (await compare(data.password, password))) {
-    const session = await createSession(userId);
+    console.log(user);
+    console.log(id);
+
+    const session = await createSession(id);
     if (session) {
       return session;
-      // return {
-      //   user: {
-      //     ...user,
-      //     roles: user.roles?.map((role) => role.roleId),
-      //   },
-      //   session: session,
-      // };
     }
   }
   return null;
 };
 
-const createSession = async (userId: string) => {
+const createSession = async (userId: number) => {
   return db.session.create({
     data: {
       userId,

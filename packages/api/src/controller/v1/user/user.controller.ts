@@ -1,11 +1,12 @@
 import { ParameterizedContext } from 'koa';
 import Router from 'koa-router';
+import { omit } from 'lodash';
 
 import { SessionGuard } from '@backend/middleware/session.guard';
-import { CLIENT_ERROR, CreateUserSchema, IdSchema, RoleEnum, SUCCESS } from '@libs/shared';
+import { CLIENT_ERROR, CreateUserSchema, IdSchema, IdStringSchema, RoleEnum, SUCCESS } from '@libs/shared';
 import { PathGuard, RoleGuard, SchemaGuard } from '@backend/middleware';
 
-import { createUser, disableUser, enableUser, getUser, getUserAll, getUserById } from './user.service';
+import { createUser, disableUser, enableUser, getUser, getUserAll, getUserById, getUserByUserId } from './user.service';
 
 const route = ['/user'];
 const router: Router = new Router();
@@ -33,19 +34,26 @@ router.get('/', SessionGuard(), RoleGuard([RoleEnum.ADMIN]), async (ctx: Paramet
 router.get('/me', SessionGuard(), RoleGuard([RoleEnum.USER]), async (ctx: ParameterizedContext) => {
   const data = ctx.data;
   if (!data.user) ctx.throw(CLIENT_ERROR.NOT_FOUND.status, CLIENT_ERROR.NOT_FOUND.message);
-  ctx.body = data.user;
+  ctx.body = omit(data.user, ['id']);
 }); // {get} /me
 
 router.get(
   '/:id',
-  SessionGuard(),
+  SessionGuard({}),
   RoleGuard([RoleEnum.USER]),
-  PathGuard(IdSchema),
+  PathGuard(IdStringSchema, { stripUnknown: false }),
+  PathGuard(IdSchema, { stripUnknown: false }),
   async (ctx: ParameterizedContext) => {
     const data = ctx.data;
-    const user = await getUserById(data.path.id);
-    if (!user) ctx.throw(CLIENT_ERROR.NOT_FOUND.status, CLIENT_ERROR.NOT_FOUND.message);
-    ctx.body = user;
+    if (typeof data.path.id === 'string') {
+      const user = await getUserByUserId(data.path.id);
+      if (!user) ctx.throw(CLIENT_ERROR.NOT_FOUND.status, CLIENT_ERROR.NOT_FOUND.message);
+      ctx.body = user;
+    } else {
+      const user = await getUserById(data.path.id);
+      if (!user) ctx.throw(CLIENT_ERROR.NOT_FOUND.status, CLIENT_ERROR.NOT_FOUND.message);
+      ctx.body = user;
+    }
   },
 ); // {get} /:id
 
@@ -55,7 +63,7 @@ router.post(
   '/:id',
   SessionGuard(),
   RoleGuard([RoleEnum.ADMIN]),
-  PathGuard(IdSchema),
+  PathGuard(IdStringSchema),
   async (ctx: ParameterizedContext) => {
     const data = ctx.data;
     const status = enableUser(data.path.id);
@@ -69,7 +77,7 @@ router.delete(
   '/:id',
   SessionGuard(),
   RoleGuard([RoleEnum.ADMIN]),
-  PathGuard(IdSchema),
+  PathGuard(IdStringSchema),
   async (ctx: ParameterizedContext) => {
     const data = ctx.data;
     const status = disableUser(data.path.id);

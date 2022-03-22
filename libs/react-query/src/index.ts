@@ -1,1 +1,1 @@
-export * from './queries';
+export const hello = null;
