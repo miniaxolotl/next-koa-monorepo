@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 import { withTheme } from '@emotion/react';
-import { Text, TextProps, TextStyle } from '@components/core';
+import { Text, TextProps, TextStyle } from '@libs/components';
 
 type AnchorStyle = TextStyle & {
   // nothing
