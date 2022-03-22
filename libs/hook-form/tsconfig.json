@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
+<<<<<<< HEAD
     "declaration": true,
     "sourceMap": true,
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -28,6 +29,23 @@
     "baseUrl": "./src",
     "incremental": true,
     "allowJs": true
+=======
+    "target": "esnext",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+
+    /* module resolution options */
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": false,
+
+    "types": ["node", "react"],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "incremental": true,
+    "jsx": "preserve"
+>>>>>>> bf12a89 (refactor: create libs for hooks)
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules/", "**/spec.ts"]

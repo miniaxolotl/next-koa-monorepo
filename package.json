@@ -40,8 +40,8 @@
     "serve": "concurrently 'yarn serve:api' 'yarn serve:web'",
     "serve:api": "yarn workspace api serve",
     "serve:web": "yarn workspace web serve",
-    "watch:lib-components": "yarn workspace @libs/components watch",
     "watch:libs": "concurrently 'yarn watch:lib-components' 'yarn watch:lib-config' 'yarn watch:lib-crypt' 'yarn watch:lib-database' 'yarn watch:lib-hook-form' 'yarn watch:lib-hooks' 'yarn watch:lib-shared' 'yarn watch:lib-stores' 'yarn watch:lib-themes' 'yarn watch:lib-utility'",
+    "watch:lib-components": "yarn workspace @libs/components watch",
     "watch:lib-config": "yarn workspace @libs/config watch",
     "watch:lib-crypt": "yarn workspace @libs/crypt watch",
     "watch:lib-database": "yarn workspace @libs/database watch",
@@ -67,7 +67,15 @@
     "build:lib-utility": "yarn workspace @libs/utility build",
     "start": "concurrently 'yarn start:api' 'yarn start:web'",
     "start:api": "yarn workspace api start",
-    "start:web": "yarn workspace web start"
+    "start:web": "yarn workspace web start",
+    "clean": " yarn workspace @libs/config clean && yarn workspace @libs/crypt clean && yarn workspace @libs/database clean && yarn workspace @libs/hook-form clean && yarn workspace @libs/hooks clean && yarn workspace @libs/shared clean && yarn workspace @libs/utility clean && yarn clean:api && yarn clean:web",
+    "clean:api": "yarn workspace api clean",
+    "clean:web": "yarn workspace web clean",
+    "db:reset": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate reset --force --skip-seed",
+    "db:generate": "yarn prisma generate",
+    "db:migrate": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate dev",
+    "db:seed": "yarn scripts:seed",
+    "scripts:seed": "yarn prisma db seed"
   },
   "prisma": {
     "seed": "yarn ts-node -r tsconfig-paths/register -r ts-node prisma/seed.ts"
