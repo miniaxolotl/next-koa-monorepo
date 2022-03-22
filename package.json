@@ -68,7 +68,7 @@
     "start": "concurrently 'yarn start:api' 'yarn start:web'",
     "start:api": "yarn workspace api start",
     "start:web": "yarn workspace web start",
-    "clean": " yarn workspace @libs/config clean && yarn workspace @libs/crypt clean && yarn workspace @libs/database clean && yarn workspace @libs/hook-form clean && yarn workspace @libs/hooks clean && yarn workspace @libs/shared clean && yarn workspace @libs/utility clean && yarn clean:api && yarn clean:web",
+    "clean": "yarn workspace @libs/components clean && yarn workspace @libs/config clean && yarn workspace @libs/crypt clean && yarn workspace @libs/database clean && yarn workspace @libs/hook-form clean && yarn workspace @libs/hooks clean && yarn workspace @libs/shared clean && yarn workspace @libs/stores clean && yarn workspace @libs/themes clean && yarn workspace @libs/utility clean && yarn clean:api && yarn clean:web",
     "clean:api": "yarn workspace api clean",
     "clean:web": "yarn workspace web clean",
     "db:reset": "DB_MYSQL_URL=$DB_MYSQL_ROOT_URL yarn prisma migrate reset --force --skip-seed",
